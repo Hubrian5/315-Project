@@ -7,15 +7,20 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: white;
+
+    background-color: #007bff;
 }
 .logo {
     display: flex;
     justify-content: flex-start;
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    text-align: center;
 }
-.logo img {
-    max-width: 150px;
-    height: auto;
+.logo a{
+    text-decoration: none;
+    color: white;
 }
 .auth-buttons {
     display: flex;
@@ -28,6 +33,7 @@ body {
     padding: 8px 16px;
     border: 1px solid #333;
     border-radius: 4px;
+    background-color:#ccc;
 }
 .auth-buttons a:hover {
     background-color: #333;
