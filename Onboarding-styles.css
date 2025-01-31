@@ -1,0 +1,103 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0128a8; /* Light yellow background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px; /* Space between forms */
+    padding: 20px;
+}
+
+/* Form Container */
+.form-container {
+    background: white;
+    padding: 20px;
+    width: 320px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Headings */
+h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+/* Input Fields */
+input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+/* Checkbox */
+.checkbox-container {
+    display: flexbox;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.login-btn {
+    background: #0128a8;
+    color: white;
+}
+
+.signup-btn {
+    background: #444;
+    color: white;
+}
+
+.reset-btn {
+    background: #0128a8;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* OR separator */
+.or-text {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Links */
+.forgot-link, .register-text, .back-text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #0128a8;
+}
+
+a:hover {
+    text-decoration: underline;
+}
