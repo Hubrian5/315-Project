@@ -1,0 +1,194 @@
+/*************
+CMPT-315-AS01
+Group Project- HTML & CSS Pages
+ThreadNet-Profile-Page-Styling.css
+Written By: Oscar De Leon 
+**************/
+
+
+body {
+    margin: 0%;
+}
+
+.header {
+    text-align: center;
+    padding: 2%;
+    background-color: #007bff;
+}
+
+#threadnet {
+    color: #ffffff;
+    font-weight: bolder;
+}
+
+.nav-items {
+    color: #f4f4f4;
+    padding: 7%;
+    text-decoration: none;
+}
+
+.nav-items:hover {
+    color: #2E5EAA;
+}
+
+.body {
+    background-color: #f4f4f4;
+    height: 200%;
+}
+
+.input {
+    width: 80%;
+            padding: 2%;
+            margin-top: 2%;
+            border: 1% solid #ccc;
+            border-radius: 3vmin;
+            text-align: center;
+            font-size: 100%;
+            border-style: none;
+}
+
+.button {
+    background-color: #007bff;
+    color: #ffffff;
+    font-style: italic;
+    font-weight: bold;
+    border: none;
+    border-radius: 1vmin;
+    padding: 3% 10%;
+    text-align: center;
+    display: block;
+    margin: 5% auto;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2E5EAA;
+    color:#ffffff;
+}
+
+.button2 {
+    background-color: #ffffff;
+    color: #2E5EAA;
+    font-style: italic;
+    font-weight: bold;
+    border: none;
+    border-radius: 1vmin;
+    padding: 1% 1%;
+    cursor: pointer;
+}
+
+#pfp-div {
+    float: left;
+    width: 40%;
+    height: 100%;
+}
+
+#username-div {
+    float: right;
+    width: 60%;
+    height: 100%;
+    text-align: center;
+}
+
+#profile-image {
+    width: 100%;
+    height: 100%;
+}
+
+#img-div {
+    align-content: center;
+    height: 40%;
+    padding: 8%;
+}
+
+#top-section {
+    height: 50%;
+}
+
+#bottom-section {
+    height: 50%;
+    padding: 5%;
+}
+
+#courses-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007bff;
+    height:40%;
+    text-align: center;
+    flex-direction: column;
+    border-radius: 1vmin;
+    padding:1%;
+}
+
+#date-joined-div {
+    width: 35%;
+    float: left;
+    padding-left: 10%;
+    padding-right: 1%;
+    font-size: small;
+}
+
+#number-of-threads-posted {
+    width: 35%;
+    float: right;
+    padding-right: 10%;
+    padding-left: 1%;
+    font-size: small;
+}
+
+#about-me-div {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 30%;
+    font-size: small;
+    text-align: center;
+}
+
+#add-button {
+    font-size: small;
+}
+
+#ongoing-buttons-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+}
+
+#remove-button {
+    margin-right: 5%;
+}
+
+#add-button {
+    margin-left: 5%;
+}
+
+#about-me-content {
+    font-size: smaller;
+}
+
+.scrollable-list {
+    width: 50%;
+    height: 60%;
+    min-height: 10%;
+    max-height: 70%;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background: white;
+    padding: 2%;
+    border-radius: 1vmin;
+}
+.scrollable-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.scrollable-list li {
+    padding: 3%;
+    border-bottom: 1px solid #ddd;
+}
+.scrollable-list li:last-child {
+    border-bottom: none;
+}
