@@ -6,6 +6,6 @@ List of Processes:
   
   b) Forgot password
   
-3. Home Page with Topics
-4. Thread of topic
-Can access the profile from any page as it is always in the top right of the screen
+2. Home Page with Topics
+3. Thread of topic
+4. User Profile (Can be accessed from any page)
