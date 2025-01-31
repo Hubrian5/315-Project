@@ -7,7 +7,7 @@ List of Processes:
   b) Forgot password
   
 2. Home Page with Topics
-3. Thread of topic(Reply, Quote-Reply, Delete, Edit, Access Profile)
+3. Thread of topic(Reply, Quote-Reply, Delete, Edit, Access Profile, Return to home page) 6 interaction elements
 4. User Profile (Can be accessed from any page)
    
    a) Edit Password
