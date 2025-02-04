@@ -22,6 +22,8 @@ class CoursesDTO {
 }
 
 let backendResponse = {
+    //backendResponse: responisble for retrieving and holding onto values display on the webpage. Communicates with web page and database 
+
     userProfile: {
         username: "JohnDoe",
         password: "jDoe443%",
@@ -42,6 +44,7 @@ let backendResponse = {
 };
 
 const userProfileDTO = new UserProfileDTO (
+    // creates a DTO object
     backendResponse.userProfile.username,
     backendResponse.userProfile.password,
     backendResponse.userProfile.email,
@@ -53,10 +56,12 @@ const userProfileDTO = new UserProfileDTO (
 );
 
 const courseDTO = backendResponse.courses.map(
+    // creates a DTO object
     course => new CoursesDTO(course.entryID, course.courseName, course.courseStatus)
 );
 
 function populateUserProfile(userProfileDTO) {
+    // populates web page with what ProfilePage.js knows the current contents of a given data entry is 
     document.querySelector("#username-div h2").textContent = `#${userProfileDTO.username}`;
     document.querySelector("#username-div input[type='password']").value = userProfileDTO.password;
     document.querySelector("#email-input").value = userProfileDTO.email;
@@ -67,13 +72,16 @@ function populateUserProfile(userProfileDTO) {
 }
 
 function populateOngoingCourses(courseDTO) {
+    // populates web page with what ProfilePage.js knows the current contents of a given data entry is 
     let ongoingCoursesList = document.querySelector("#ongoing-courses-scrollable-list ul");
 
     //Clear the existing list
     ongoingCoursesList.innerHTML = "";
 
+    // Filter courses with status 'ongoing'
     let ongoingCourses = courseDTO.filter(course => course.courseStatus == "ongoing");
 
+    // Populate the list with ongoing courses
     ongoingCourses.forEach(course => {
         let listItem = document.createElement("li");
         listItem.textContent = course.courseName;
@@ -82,6 +90,7 @@ function populateOngoingCourses(courseDTO) {
 }
 
 function populateCompletedCourses(courseDTO) {
+    // populates web page with what ProfilePage.js knows the current contents of a given data entry is 
     let completedCoursesList = document.querySelector("#completed-courses-scrollable-list ul");
 
     // Clear the existing list
@@ -104,11 +113,13 @@ populateOngoingCourses(courseDTO);
 populateCompletedCourses(courseDTO);
 
 document.getElementById("edit-button").addEventListener("click", () => {
+    // Allows input fields (password, email, recovery email) to be editable 
     const inputs = document.querySelectorAll("#username-div input");
     inputs.forEach(input => input.removeAttribute("readonly"));
 });
 
 document.getElementById("save-button").addEventListener("click", () => {
+    // updates changes made to user data. Not functional until connected to the database
     let updatedPassword = document.querySelector("#password-input");
     let updatedEmail = document.querySelector("#email-input");
     let updatedRecoveryEmail = document.querySelector("#recovery-email-input");
@@ -136,6 +147,7 @@ document.getElementById("save-button").addEventListener("click", () => {
 });
 
 document.getElementById("add-button").addEventListener("click", () => {
+    // updates changes made to user data. Not functional until connected to the database
     const courseName = document.querySelector("#ongoing-buttons-div input").value;
     if (courseName) {
         const newCourse = new CourseDTO(Date.now(), courseName, "ongoing");
