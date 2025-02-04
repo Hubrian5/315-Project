@@ -66,37 +66,47 @@ function populateUserProfile(userProfileDTO) {
     document.querySelector("#about-me-content").textContent = `Wow ${userProfileDTO.aboutMe}`;
 }
 
-function populateCompletedCourses(courseDTOs) {
-    const completedCoursesList = document.querySelector("#courses-div:nth-of-type(2) .scrollable-list ul");
+function populateOngoingCourses(courseDTO) {
+    let ongoingCoursesList = document.querySelector("#ongoing-courses-scrollable-list ul");
+
+    //Clear the existing list
+    ongoingCoursesList.innerHTML = "";
+
+    let ongoingCourses = courseDTO.filter(course => course.courseStatus == "ongoing");
+
+    ongoingCourses.forEach(course => {
+        let listItem = document.createElement("li");
+        listItem.textContent = course.courseName;
+        ongoingCoursesList.appendChild(listItem);
+    });
+}
+
+function populateCompletedCourses(courseDTO) {
+    let completedCoursesList = document.querySelector("#completed-courses-scrollable-list ul");
 
     // Clear the existing list
     completedCoursesList.innerHTML = "";
 
     // Filter courses with status "completed"
-    const completedCourses = courseDTOs.filter(course => course.status === "completed");
+    let completedCourses = courseDTO.filter(course => course.courseStatus === "completed");
 
     // Populate the list with completed courses
     completedCourses.forEach(course => {
-        const listItem = document.createElement("li");
-        listItem.textContent = course.name;
+        let listItem = document.createElement("li");
+        listItem.textContent = course.courseName;
         completedCoursesList.appendChild(listItem);
     });
 }
 
 // Populate the page with DTO data
 populateUserProfile(userProfileDTO);
+populateOngoingCourses(courseDTO); 
 populateCompletedCourses(courseDTO);
 
 document.getElementById("edit-button").addEventListener("click", () => {
     const inputs = document.querySelectorAll("#username-div input");
     inputs.forEach(input => input.removeAttribute("readonly"));
 });
-
-// document.getElementById("save-button").addEventListener("click", () => {
-//     const inputs = document.querySelectorAll("#username-div input");
-//     inputs.forEach(input => input.setAttribute("readonly", true));
-//     alert("Changes saved!");
-// });
 
 document.getElementById("save-button").addEventListener("click", () => {
     let updatedPassword = document.querySelector("#password-input");
