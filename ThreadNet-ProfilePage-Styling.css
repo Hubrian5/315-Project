@@ -21,6 +21,14 @@ body {
     text-align: center;
 }
 
+#threadnet-text {
+    text-decoration: none;
+}
+
+#myProfile-text {
+    text-decoration: none;
+}
+
 .banner {
     text-decoration: none;
     color: white;
@@ -34,7 +42,7 @@ body {
     color: #2E5EAA;
 }
 
-.profile {
+.logout {
     font-size: 1em;
     padding: 5px 15px;
     background: white;
@@ -43,7 +51,7 @@ body {
     cursor: pointer;
 }
 
-.profile:hover {
+.logout:hover {
     background-color: #2E5EAA;
     color: #ffffff;
 }
