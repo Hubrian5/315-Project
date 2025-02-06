@@ -7,9 +7,8 @@ Written By: Oscar De Leon
 -->
 <header id="profile-page-header" class="header">
     <link rel="stylesheet" href="ThreadNet-ProfilePage-Styling.css">
-    <!-- <h1 id="threadnet">ThreadNet</h1> -->
-    <div class="banner">ThreadNet</div>
-    <div class="profile">My Profile</div>
+    <a href="homepage.html" id="threadnet-text"><div class="banner">ThreadNet</div></a>
+    <a href="homepage.html" id="myProfile-text"><div class="logout">Logout</div></a>
 </header>
 
 <body id="page-body" class="body">
@@ -37,9 +36,7 @@ Written By: Oscar De Leon
 
             <div id="about-me-div" class="div">
                 <h2 id="about-me-text">About Me</h2>
-                <h2 id="about-me-content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec sapien turpis. Sed neque diam, scelerisque vel lacinia consequat, fermentum at nulla. Etiam ac dignissim odio. Fusce tempor in quam ullamcorper fringilla. Fusce hendrerit eleifend convallis. Etiam bibendum neque eu mauris suscipit pretium. Donec iaculis vitae massa non semper. Suspendisse efficitur nulla sed molestie venenatis. Aliquam erat volutpat.
-                </h2>
+                <textarea id="about-me-textarea" maxlength="600" class="textarea" placeholder="Write something about yourself..." readonly></textarea> 
             </div>
         </div>
         <div id="username-div" class="div">
@@ -52,7 +49,6 @@ Written By: Oscar De Leon
             <br><br><br>
             <label>Recovery Email</label><br>
             <input id="recovery-email-input" type="text" value="JohnD.backup@example.com" class="input" readonly>
-            <br><br><br>
             <button id="edit-button" class="button">Edit</button>
             <button id="save-button" class="button">Save</button>
         </div>
@@ -60,16 +56,11 @@ Written By: Oscar De Leon
     </section>
     
     <section id="bottom-section" class="section">
-        <div id="courses-div" class="div">
-            <h2>Ongoing Courses</h2>
+        <div class="courses-div">
+            <h2 class="courses-header">Ongoing Courses</h2>
             <div id="ongoing-courses-scrollable-list" class="scrollable-list">
                 <ul>
-                    <!-- <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                    <li>Item 4</li>
-                    <li>Item 5</li>
-                    <li>Item 6</li> -->
+
                 </ul>
             </div>
     
@@ -85,16 +76,11 @@ Written By: Oscar De Leon
 
         </div>
         <br><br>
-        <div id="courses-div" class="div">
-            <h2>Completed Courses</h2>
+        <div class="courses-div">
+            <h2 class="courses-header">Completed Courses</h2>
             <div id="completed-courses-scrollable-list" class="scrollable-list">
                 <ul>
-                    <!-- <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                    <li>Item 4</li>
-                    <li>Item 5</li>
-                    <li>Item 6</li> -->
+
                 </ul>
             </div>
     

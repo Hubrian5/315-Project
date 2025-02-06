@@ -5,10 +5,15 @@ ThreadNet-Profile-Page-Styling.css
 Written By: Oscar De Leon 
 **************/
 
+html {
+    /* font-size: 2vw; */
+    font-size: clamp(0.5rem, 1.2vw, 3rem);
+}
 
 body {
     margin: 0%;
     font-family: Arial, sans-serif;
+     background-color: #f4f4f4;
 }
 
 .header {
@@ -19,6 +24,14 @@ body {
     color: white;
     padding: 15px;
     text-align: center;
+}
+
+#threadnet-text {
+    text-decoration: none;
+}
+
+#myProfile-text {
+    text-decoration: none;
 }
 
 .banner {
@@ -34,7 +47,7 @@ body {
     color: #2E5EAA;
 }
 
-.profile {
+.logout {
     font-size: 1em;
     padding: 5px 15px;
     background: white;
@@ -43,7 +56,7 @@ body {
     cursor: pointer;
 }
 
-.profile:hover {
+.logout:hover {
     background-color: #2E5EAA;
     color: #ffffff;
 }
@@ -61,11 +74,6 @@ body {
 
 .nav-items:hover {
     color: #2E5EAA;
-}
-
-.body {
-    background-color: #f4f4f4;
-    height: 200%;
 }
 
 .input {
@@ -109,13 +117,23 @@ button:hover {
     cursor: pointer;
 }
 
+.textarea {
+    width: 200%;
+    height: 100%;
+    padding: 1%;
+    margin-left: 10%;
+    min-width: 5%;
+    border: 0.1vmin solid #ddd;
+    border-radius: 1vmin;
+}
+
 #pfp-div {
     display: flex;
     flex-direction: column;
     align-items: center;
     float: left;
     width: 40%;
-    height: 100%;
+    height: 97%;
     padding-top: 2%;
     padding-left: 2%;
 }
@@ -146,15 +164,18 @@ button:hover {
 }
 
 #top-section {
-    height: 50%;
+    height: 100%;
+    margin-bottom: 6%;
 }
 
 #bottom-section {
-    height: 50%;
+    height: 130%;
     padding: 5%;
+    max-height: 200%;
+    margin-top: 1%;
 }
 
-#courses-div {
+.courses-div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -163,7 +184,13 @@ button:hover {
     text-align: center;
     flex-direction: column;
     border-radius: 1vmin;
-    padding:1%;
+    padding: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.courses-header {
+    color:#ffffff;
 }
 
 #date-joined-div {
@@ -171,7 +198,8 @@ button:hover {
     float: left;
     padding-left: 10%;
     padding-right: 1%;
-    font-size: small;
+    margin-right: 4%;
+    font-size: clamp(1rem, 1.1vw, 3rem);
 }
 
 #number-of-threads-posted {
@@ -179,14 +207,21 @@ button:hover {
     float: right;
     padding-right: 10%;
     padding-left: 1%;
-    font-size: small;
+    margin-left: 4%;
+    font-size: clamp(1rem, 1.1vw, 3rem);
 }
 
 #about-me-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding-left: 10%;
     padding-right: 10%;
-    padding-top: 5%;
-    font-size: small;
+    /* padding-top: 5%; */
+    width: 50%;
+    height: 40%;
+    font-size: clamp(1rem, 1.3vw, 3rem);
     text-align: center;
 }
 
@@ -207,10 +242,6 @@ button:hover {
 
 #add-button {
     margin-left: 5%;
-}
-
-#about-me-content {
-    font-size: smaller;
 }
 
 .scrollable-list {
