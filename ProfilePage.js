@@ -68,7 +68,7 @@ function populateUserProfile(userProfileDTO) {
     document.querySelector("#recovery-email-input").value = userProfileDTO.recoveryEmail;
     document.querySelector("#date-joined-div h2").textContent = `Date Joined: ${userProfileDTO.dateJoined}`;
     document.querySelector("#number-of-threads-posted h2").textContent = `# of Threads posted: ${userProfileDTO.numThreadsPosted} | # of replies: ${userProfileDTO.numReplies}`;
-    document.querySelector("#about-me-content").textContent = `Wow ${userProfileDTO.aboutMe}`;
+    document.querySelector("#about-me-textarea").textContent = `Wow ${userProfileDTO.aboutMe}`;
 }
 
 function populateOngoingCourses(courseDTO) {
@@ -116,6 +116,10 @@ document.getElementById("edit-button").addEventListener("click", () => {
     // Allows input fields (password, email, recovery email) to be editable 
     const inputs = document.querySelectorAll("#username-div input");
     inputs.forEach(input => input.removeAttribute("readonly"));
+
+    const textarea = document.querySelector("#about-me-textarea");
+    textarea.removeAttribute("readonly");
+
 });
 
 document.getElementById("save-button").addEventListener("click", () => {
@@ -123,23 +127,28 @@ document.getElementById("save-button").addEventListener("click", () => {
     let updatedPassword = document.querySelector("#password-input");
     let updatedEmail = document.querySelector("#email-input");
     let updatedRecoveryEmail = document.querySelector("#recovery-email-input");
+    let updatedAboutMe = document.querySelector("#about-me-textarea");
 
     // Remove readonly before updating
     updatedPassword.removeAttribute("readonly");
     updatedEmail.removeAttribute("readonly");
     updatedRecoveryEmail.removeAttribute("readonly");
+    updatedAboutMe.removeAttribute("readonly");
 
     backendResponse.userProfile.password = updatedPassword.value.trim();
     backendResponse.userProfile.email = updatedEmail.value.trim();
     backendResponse.userProfile.recoveryEmail = updatedRecoveryEmail.value.trim();
+    backendResponse.userProfile.aboutMe = updatedAboutMe.value.trim();
 
     userProfileDTO.password = backendResponse.userProfile.password;
     userProfileDTO.email = backendResponse.userProfile.email;
     userProfileDTO.recoveryEmail = backendResponse.userProfile.recoveryEmail;
+    userProfileDTO.aboutMe = backendResponse.userProfile.aboutMe;
 
     updatedPassword.setAttribute("readonly", true);
     updatedEmail.setAttribute("readonly", true);
     updatedRecoveryEmail.setAttribute("readonly", true);
+    updatedAboutMe.setAttribute("readonly", true);
 
     populateUserProfile(userProfileDTO);
 
