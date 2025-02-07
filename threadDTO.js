@@ -1,4 +1,4 @@
-// Define the DTO structure
+// DTO structure
 const threadDTO = {
     postId: "12345",
     username: "John Balatro",
