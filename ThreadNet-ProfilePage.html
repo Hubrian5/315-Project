@@ -7,13 +7,8 @@ Written By: Oscar De Leon
 -->
 <header id="profile-page-header" class="header">
     <link rel="stylesheet" href="ThreadNet-ProfilePage-Styling.css">
-    <h1 id="threadnet">ThreadNet</h1>
-
-    <nav id="header-nav" class="nav">
-        <a id="header-nav-about" class="nav-items" href="#a">About</a>
-        <a id="header-nav-home" class="nav-items" href="#b">Home</a>
-        <a id="header-nav-profile" class="nav-items" href="#c">Profile</a>
-    </nav>
+    <a href="homepage.html" id="threadnet-text"><div class="banner">ThreadNet</div></a>
+    <a href="homepage.html" id="myProfile-text"><div class="logout">Logout</div></a>
 </header>
 
 <body id="page-body" class="body">
@@ -23,38 +18,37 @@ Written By: Oscar De Leon
                 <img src="apple.jpg" alt="profile-image" id="profile-image" class="image">
             </div>
 
-            <div id="date-joined-div" class="div">
-                <h2>
-                    Date Joined: 
-                    2025-01-30
-                </h2>
-            </div>
+            <div>
+                <div id="date-joined-div" class="div">
+                    <h2>
+                        Date Joined: 
+                        2025-01-30
+                    </h2>
+                </div>
 
-            <div id="number-of-threads-posted" class="div">
-                <h2>
-                    # of Threads posted: 13
-                    # of replies: 21
-                </h2>
+                <div id="number-of-threads-posted" class="div">
+                    <h2>
+                        # of Threads posted: 13
+                        # of replies: 21
+                    </h2>
+                </div>
             </div>
 
             <div id="about-me-div" class="div">
                 <h2 id="about-me-text">About Me</h2>
-                <h2 id="about-me-content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec sapien turpis. Mauris non velit a libero ullamcorper ornare. Aenean quis lacus placerat, consequat diam ut, gravida ex. Sed neque diam, scelerisque vel lacinia consequat, fermentum at nulla. Etiam ac dignissim odio. Fusce tempor in quam ullamcorper fringilla. Fusce hendrerit eleifend convallis. Etiam bibendum neque eu mauris suscipit pretium. Donec iaculis vitae massa non semper. Suspendisse efficitur nulla sed molestie venenatis. Aliquam erat volutpat.
-                </h2>
+                <textarea id="about-me-textarea" maxlength="600" class="textarea" placeholder="Write something about yourself..." readonly></textarea> 
             </div>
         </div>
         <div id="username-div" class="div">
             <br><h2>#USERNAME</h2>
             <label>Password</label><br>
-            <input type="password" value="*************" class="input">
+            <input id="password-input" type="password" value="*************" class="input" readonly>
             <br><br><br>
             <label>Email</label><br>
-            <input type="text" value="John.doe@example.com" class="input">
+            <input id="email-input" type="text" class="input" readonly>
             <br><br><br>
             <label>Recovery Email</label><br>
-            <input type="text" value="JohnD.backup@example.com" class="input">
-            <br><br><br>
+            <input id="recovery-email-input" type="text" value="JohnD.backup@example.com" class="input" readonly>
             <button id="edit-button" class="button">Edit</button>
             <button id="save-button" class="button">Save</button>
         </div>
@@ -62,16 +56,11 @@ Written By: Oscar De Leon
     </section>
     
     <section id="bottom-section" class="section">
-        <div id="courses-div" class="div">
-            <h2>Ongoing Courses</h2>
-            <div class="scrollable-list">
+        <div class="courses-div">
+            <h2 class="courses-header">Ongoing Courses</h2>
+            <div id="ongoing-courses-scrollable-list" class="scrollable-list">
                 <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                    <li>Item 4</li>
-                    <li>Item 5</li>
-                    <li>Item 6</li>
+
                 </ul>
             </div>
     
@@ -87,16 +76,11 @@ Written By: Oscar De Leon
 
         </div>
         <br><br>
-        <div id="courses-div" class="div">
-            <h2>Completed Courses</h2>
-            <div class="scrollable-list">
+        <div class="courses-div">
+            <h2 class="courses-header">Completed Courses</h2>
+            <div id="completed-courses-scrollable-list" class="scrollable-list">
                 <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                    <li>Item 4</li>
-                    <li>Item 5</li>
-                    <li>Item 6</li>
+
                 </ul>
             </div>
     
@@ -109,6 +93,7 @@ Written By: Oscar De Leon
         </div>
     </section>
     
+    <script src="ProfilePage.js"></script>
 </body>
 
 </html>
