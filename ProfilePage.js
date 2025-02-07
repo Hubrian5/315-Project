@@ -153,16 +153,21 @@ document.getElementById("save-button").addEventListener("click", () => {
     populateUserProfile(userProfileDTO);
 
     alert("Changes saved!");
+    console.log("UserProfileDTO: ", userProfileDTO);
+
 });
 
 document.getElementById("add-button").addEventListener("click", () => {
     // updates changes made to user data. Not functional until connected to the database
-    const courseName = document.querySelector("#ongoing-buttons-div input").value;
+    const courseName = document.querySelector("#ongoing-courses-input").value;
     if (courseName) {
-        const newCourse = new CourseDTO(Date.now(), courseName, "ongoing");
+        const newCourse = new CoursesDTO(Date.now(), courseName, "ongoing");
         courseDTO.push(newCourse);
-        populateCourses(courseDTOs);
+        populateOngoingCourses(courseDTO);
+        populateCompletedCourses(courseDTO);
     }
+
+    console.log("CourseDTO: ", courseDTO);
 });
 
 
