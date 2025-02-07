@@ -11,7 +11,7 @@
     <!-- Login Form -->
     <div class="form-container">
         <h2>Log in</h2>
-        <form>
+        <form id="signin-form">
             <label for="login-email">Username and Email</label>
             <input type="email" id="login-email" placeholder="Enter your email" required>
 
@@ -23,14 +23,17 @@
                 <label for="remember-me">Keep me signed in</label>
             </div>
 
-            <button type="submit" class="login-btn">Log in</button>
+            <button type="submit" class="login-btn" onclick="window.location.href='homepage.html'">Log in</button>
 
             <p class="or-text">or</p>
 
-            <button type="button" class="signup-btn">Sign up</button>
+            <button type="button" class="signup-btn" onclick="window.location.href='Sign-up-page.html'">Sign up</button>
 
-            <p class="forgot-link"><a href="#">Forgot Password?</a></p>
+
+            <p class="forgot-link"><a href="forgot-password-page.html">Forgot Password?</a></p>
+            
         </form>
     </div>
+    <script src="authDTO.js"></script>
 </body>
 </html>

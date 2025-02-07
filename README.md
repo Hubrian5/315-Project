@@ -1,5 +1,6 @@
 https://docs.google.com/document/d/123ahWgK8QmV9ahIjI8UwY2dEvKYfNhQWwZbtqtf8aeM/edit?usp=sharing
-List of Processes:
+
+List of Processes and # of DTO's per process in above document:
 
 1. Login screen
    
