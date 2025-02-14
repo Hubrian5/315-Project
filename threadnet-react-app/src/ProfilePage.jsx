@@ -31,6 +31,7 @@ function ProfilePage() {
   const [ongoingCourses, setOngoingCourses] = useState([]);
   const [completedCourses, setCompletedCourses] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [newCourse, setNewCourse] = useState("");
 
   useEffect(() => {
     const userProfile = new UserProfileDTO(
@@ -52,6 +53,34 @@ function ProfilePage() {
     setOngoingCourses(coursesDTO.filter((course) => course.courseStatus === "ongoing"));
     setCompletedCourses(coursesDTO.filter((course) => course.courseStatus === "completed"));
   }, []);
+
+  const handleAddCourse = () => {
+    if (!newCourse.trim()) return; // Ignore empty input
+  
+    const allCourses = [...backendResponse.courses];
+    const maxEntryID = Math.max(...allCourses.map((course) => course.entryID), 0);
+    const newEntryID = maxEntryID + 1;
+  
+    const newCourseEntry = {
+      entryID: newEntryID,
+      courseName: newCourse.trim(),
+      courseStatus: "ongoing",
+    };
+  
+    backendResponse.courses.push(newCourseEntry);
+  
+    const newCourseDTO = new CoursesDTO(
+      newEntryID,
+      newCourse.trim(),
+      "ongoing"
+    );
+    setOngoingCourses((prev) => [...prev, newCourseDTO]);
+  
+    // Clear input
+    setNewCourse("");
+
+    console.log("A new course has been added:", backendResponse.courses)
+  };
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -107,7 +136,7 @@ function ProfilePage() {
                 className="textarea"
                 placeholder="Write something about yourself..."
                 value={profileData.aboutMe}
-                onChange={(e) => setAboutMe(e.target.value)}
+                onChange={(e) => setProfileData({ ...profileData, aboutMe: e.target.value })}
                 readOnly={!isEditing}
               ></textarea>
             </div>
@@ -118,8 +147,8 @@ function ProfilePage() {
             <label className="black-text">Password</label>
             <input id="password-input"
             type="password" 
-            value="*************" 
-            onChange={(e) => setPassword({ ...profileData, password: e.target.value })}
+            value={profileData.password} 
+            onChange={(e) => setProfileData({ ...profileData, password: e.target.value })}
             className="input" 
             readOnly={!isEditing} />
             
@@ -159,8 +188,12 @@ function ProfilePage() {
               <button id="completed-button" className="button2">Mark Selected Course as Complete</button>
             </div>
             <div id="ongoing-buttons-div">
-              <input id="ongoing-courses-input" type="text" className="input" placeholder="Enter a Class..."/>
-              <button id="add-button" className="button2">Add Course</button>
+              <input id="ongoing-courses-input" 
+              type="text" 
+              className="input" 
+              onChange={(e) => setNewCourse(e.target.value)}
+              placeholder="Enter a Class..."/>
+              <button id="add-button" className="button2" onClick={handleAddCourse}>Add Course</button>
             </div>
           </div>
           <br /><br />
