@@ -10,7 +10,7 @@ function Thread() {
   const handleDislike = () => setDislikeCount(dislikeCount + 1);
 
   return (
-    <div>
+    <div className="thread-container">
       <header className="header">
         <a href="/" className="banner">ThreadNet</a>
         <a href="/profile" className="profile">My Profile</a>
@@ -37,7 +37,7 @@ function Thread() {
               <button className="dislike-button" onClick={handleDislike}>
                 👎 Dislike <span className="dislike-count">{dislikeCount}</span>
               </button>
-              <button className="reply-button2">Reply</button>
+              <button className="reply-button">Reply</button>
               <button className="quote-button">Reply with Quote</button>
               <button className="edit-button">✏️ Edit</button>
               <button className="delete-button">🗑️ Delete</button>

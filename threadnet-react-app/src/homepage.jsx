@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "./homepage.css";
 
 const Navbar = () => {
@@ -7,9 +8,9 @@ const Navbar = () => {
   return (
     <div className="navbar">
       {navItems.map((item, index) => (
-        <a href="#thread" key={index}>
+        <Link to="/thread" key={index}> {/* Use Link for navigation */}
           {item}
-        </a>
+        </Link>
       ))}
     </div>
   );
@@ -18,9 +19,9 @@ const Navbar = () => {
 const Topic = ({ title, description, threadCount, commentCount, lastPosted }) => (
   <div className="topics">
     <div className="topic">
-      <a href="#home">
+      <Link to="/thread"> {/* Use Link for navigation */}
         <h4>{title}</h4>
-      </a>
+      </Link>
       <p>{description}</p>
     </div>
     <div className="topic">{threadCount}</div>
@@ -55,12 +56,12 @@ const HomePage = () => (
   <div>
     <header className="header">
       <div className="logo">
-        <a href="#home">ThreadNet</a>
+        <Link to="/homepage">ThreadNet</Link> {/* Use Link for navigation */}
       </div>
       <div className="auth-buttons">
-        <a href="#account" id="myaccount">
+        <Link to="/profile" id="myaccount"> {/* Use Link for navigation */}
           My Account
-        </a>
+        </Link>
       </div>
     </header>
     <Navbar />
