@@ -1,0 +1,269 @@
+/*************
+CMPT-315-AS01
+Group Project- HTML & CSS Pages
+ThreadNet-Profile-Page-Styling.css
+Written By: Oscar De Leon 
+**************/
+
+html {
+    /* font-size: 2vw; */
+    font-size: clamp(0.5rem, 1.2vw, 3rem);
+}
+
+body {
+    margin: 0%;
+    font-family: Arial, sans-serif;
+     background-color: #f4f4f4;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+#threadnet-text {
+    text-decoration: none;
+}
+
+#myProfile-text {
+    text-decoration: none;
+}
+
+.banner {
+    text-decoration: none;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    text-align: center;
+}
+
+.banner:hover {
+    color: #2E5EAA;
+}
+
+.logout {
+    font-size: 1em;
+    padding: 5px 15px;
+    background: white;
+    color: #007bff;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.logout:hover {
+    background-color: #2E5EAA;
+    color: #ffffff;
+}
+
+#threadnet {
+    color: #ffffff;
+    font-weight: bolder;
+}
+
+.nav-items {
+    color: #f4f4f4;
+    padding: 7%;
+    text-decoration: none;
+}
+
+.nav-items:hover {
+    color: #2E5EAA;
+}
+
+.input {
+    width: 80%;
+            padding: 2%;
+            margin-top: 2%;
+            border: 1% solid #ccc;
+            border-radius: 3vmin;
+            text-align: center;
+            font-size: 100%;
+            border-style: none;
+}
+
+.button {
+    background-color: #007bff;
+    color: #ffffff;
+    font-style: italic;
+    font-weight: bold;
+    border: none;
+    border-radius: 1vmin;
+    padding: 3% 10%;
+    text-align: center;
+    display: block;
+    margin: 5% auto;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2E5EAA;
+    color:#ffffff;
+}
+
+.button2 {
+    background-color: #ffffff;
+    color: #2E5EAA;
+    font-style: italic;
+    font-weight: bold;
+    border: none;
+    border-radius: 1vmin;
+    padding: 1% 1%;
+    cursor: pointer;
+}
+
+.textarea {
+    width: 200%;
+    height: 100%;
+    padding: 1%;
+    margin-left: 10%;
+    min-width: 5%;
+    border: 0.1vmin solid #ddd;
+    border-radius: 1vmin;
+}
+
+#pfp-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    float: left;
+    width: 40%;
+    height: 97%;
+    padding-top: 2%;
+    padding-left: 2%;
+}
+
+#username-div {
+    float: right;
+    width: 58%;
+    height: 100%;
+    text-align: center;
+}
+
+#profile-image {
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
+}
+
+#img-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 0;
+    overflow: hidden;
+    border:0.1vmin solid black;
+
+}
+
+#top-section {
+    height: 100%;
+    margin-bottom: 6%;
+}
+
+#bottom-section {
+    height: 130%;
+    padding: 5%;
+    max-height: 200%;
+    margin-top: 1%;
+}
+
+.courses-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007bff;
+    height:40%;
+    text-align: center;
+    flex-direction: column;
+    border-radius: 1vmin;
+    padding: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.courses-header {
+    color:#ffffff;
+}
+
+#date-joined-div {
+    width: 35%;
+    float: left;
+    padding-left: 10%;
+    padding-right: 1%;
+    margin-right: 4%;
+    font-size: clamp(1rem, 1.1vw, 3rem);
+}
+
+#number-of-threads-posted {
+    width: 35%;
+    float: right;
+    padding-right: 10%;
+    padding-left: 1%;
+    margin-left: 4%;
+    font-size: clamp(1rem, 1.1vw, 3rem);
+}
+
+#about-me-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    /* padding-top: 5%; */
+    width: 50%;
+    height: 40%;
+    font-size: clamp(1rem, 1.3vw, 3rem);
+    text-align: center;
+}
+
+#add-button {
+    font-size: small;
+}
+
+#ongoing-buttons-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+}
+
+#remove-button {
+    margin-right: 5%;
+}
+
+#add-button {
+    margin-left: 5%;
+}
+
+.scrollable-list {
+    width: 50%;
+    height: 60%;
+    min-height: 10%;
+    max-height: 70%;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background: white;
+    padding: 2%;
+    border-radius: 1vmin;
+}
+.scrollable-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.scrollable-list li {
+    padding: 3%;
+    border-bottom: 1px solid #ddd;
+}
+.scrollable-list li:last-child {
+    border-bottom: none;
+}
