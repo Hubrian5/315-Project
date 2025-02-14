@@ -104,7 +104,9 @@ function ProfilePage() {
     <div>
       <header id="profile-page-header" className="header">
         <a href="homepage.html" id="threadnet-text">
-          <div className="banner">ThreadNet</div>
+          <div className="banner">
+          {/* <Link to="/homepage">ThreadNet</Link> Use Link for navigation */}
+            ThreadNet</div>
         </a>
         <a href="homepage.html" id="myProfile-text">
           <div className="logout">Logout</div>
