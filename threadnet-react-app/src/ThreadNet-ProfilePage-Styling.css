@@ -5,6 +5,10 @@ ThreadNet-Profile-Page-Styling.css
 Written By: Oscar De Leon 
 **************/
 
+#root, #app {
+    width: 97.5vw;
+}
+
 html {
     /* font-size: 2vw; */
     font-size: clamp(0.5rem, 1.2vw, 3rem);
@@ -13,7 +17,7 @@ html {
 body {
     margin: 0%;
     font-family: Arial, sans-serif;
-     background-color: #f4f4f4;
+     background-color:aquamarine;
 }
 
 .header {
@@ -24,6 +28,7 @@ body {
     color: white;
     padding: 15px;
     text-align: center;
+    width: 100%;
 }
 
 #threadnet-text {
@@ -117,9 +122,13 @@ button:hover {
     cursor: pointer;
 }
 
+.black-text {
+    color: black;
+}
+
 .textarea {
-    width: 200%;
-    height: 100%;
+    width: 150%;
+    height: 150%;
     padding: 1%;
     margin-left: 10%;
     min-width: 5%;
@@ -131,7 +140,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    float: left;
+    /* float: left; */
     width: 40%;
     height: 97%;
     padding-top: 2%;
@@ -139,7 +148,11 @@ button:hover {
 }
 
 #username-div {
-    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* float: right; */
     width: 58%;
     height: 100%;
     text-align: center;
@@ -160,10 +173,12 @@ button:hover {
     margin: 0;
     overflow: hidden;
     border:0.1vmin solid black;
-
 }
 
 #top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 100%;
     margin-bottom: 6%;
 }
