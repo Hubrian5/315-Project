@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff;
+}
+.logo {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    text-align: center;
+}
+.logo a{
+    text-decoration: none;
+    color: white;
+}
+.auth-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+.auth-buttons a {
+    text-decoration: none;
+    margin-left: 10px;
+    color: #333;
+    padding: 8px 16px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color:#ccc;
+}
+.auth-buttons a:hover {
+    background-color: #333;
+    color: white;
+}
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+}
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+    display: block;
+    text-align: center;
+}
+.navbar a:hover {
+    background-color: #575757;
+}
+h2 {
+    padding-left: 30px;
+    padding-top: 20px;
+}
+.content {
+    display: flex;
+    flex-grow: 1;
+    gap: 20px;
+}
+.main-section {
+    width: 70%;
+    padding: 20px;
+    border-radius: 10px;
+}
+.main-section .table-header {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+}
+.main-section .table-header div:first-child {
+    flex: 2;
+}
+.main-section .table-header div:not(:first-child) {
+    flex: 1;
+}
+.main-section .topics {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.main-section .topic {
+    background-color: #fff5f5;
+    padding-left: 25px;
+    border-radius: 5px;
+}
+.main-section .topic:first-child {
+    flex: 2;
+}
+.main-section .topic:not(:first-child) {
+    padding: 25px;
+    flex: 1;
+}
+.side-section {
+    width: 25%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #e9ecef;
+    align-self: flex-start;
+}
+.separator {
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
