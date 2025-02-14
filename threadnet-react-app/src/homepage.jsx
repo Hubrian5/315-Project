@@ -53,7 +53,7 @@ const SideSection = () => (
 );
 
 const HomePage = () => (
-  <div>
+  <div className="app-container">
     <header className="header">
       <div className="logo">
         <Link to="/homepage">ThreadNet</Link> {/* Use Link for navigation */}

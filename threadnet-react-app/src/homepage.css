@@ -1,33 +1,17 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #007bff;
-}
-.logo {
-    display: flex;
-    justify-content: flex-start;
+.logo a{
+    text-decoration: none;
+    color: white;
     font-size: 1.5em;
     font-weight: bold;
     transition: color 0.3s ease;
     text-align: center;
 }
-.logo a{
-    text-decoration: none;
-    color: white;
-}
-.auth-buttons {
+.header{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 .auth-buttons a {
-    text-decoration: none;
-    margin-left: 10px;
+    display: flex;
     color: #333;
     padding: 8px 16px;
     border: 1px solid #333;
