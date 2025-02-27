@@ -1,0 +1,123 @@
+/* Restrict styles to onboarding pages */
+.onboarding-container {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Header styling specific to onboarding pages */
+.onboarding-header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ThreadNet Banner Styling */
+.banner {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Form Container */
+.onboarding-container .form-container {
+    background: white;
+    padding: 20px;
+    width: 320px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Headings */
+.onboarding-container h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+.onboarding-container label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+/* Input Fields */
+.onboarding-container input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+/* Buttons */
+.onboarding-container button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.onboarding-container .login-btn {
+    background: #007bff;
+    color: white;
+}
+
+.onboarding-container .signup-btn {
+    background: #444;
+    color: white;
+}
+
+.onboarding-container .reset-btn {
+    background: #007bff;
+    color: white;
+}
+
+.onboarding-container .or-text {
+    margin: 10px;
+    font-weight: bold;
+}
+
+.onboarding-container .forgot-link, 
+.onboarding-container .register-text, 
+.onboarding-container .back-text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.onboarding-container a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.onboarding-container a:hover {
+    text-decoration: underline;
+}
+.onboarding-container .reset-btn:hover {
+    background: #0056b3; /* Slightly darker blue */
+}
+.onboarding-container .login-btn:hover {
+    background: #0056b3; /* Slightly darker blue */
+}
