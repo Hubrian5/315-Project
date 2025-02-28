@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Onboarding-styles.module.css";
+import { SignUpDTO } from "./AuthDTO";  // Import DTO
 
 function SignUp() {
   const [userData, setUserData] = useState({
@@ -17,7 +18,9 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Signing up with:", userData);
+    // Use DTO to structure signup data
+    const SignUpData = new SignUpDTO(userData.username, userData.email, userData.password);
+    console.log("Signing up with:", SignUpData);
     navigate("/");
   };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Onboarding-styles.module.css";
+import { ForgotPasswordDTO } from "./AuthDTO";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,11 @@ function ForgotPassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Reset password request for:", email);
+
+    // Use DTO to structure the email input
+    const forgotPasswordData = new ForgotPasswordDTO(email);
+
+    console.log("Reset password request for:", forgotPasswordData);
   };
 
   return (
