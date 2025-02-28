@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Onboarding-styles.module.css";
+import { SignInDTO } from "./AuthDTO";  // Import DTO
 
 function SignIn() {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -16,14 +18,21 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Logging in with:", credentials);
-    navigate("/homepage"); // Redirect to the homepage after login
+
+    // Use DTO to structure login data
+    const loginData = new SignInDTO(credentials.email, credentials.password);
+
+    console.log("Logging in with:", loginData); // This logs the structured DTO object
+
+    navigate("/homepage"); // Redirect to homepage
   };
 
   return (
-    <div className={styles["onboarding-container"]}> {/* Ensure consistency */}
+    <div className={styles["onboarding-container"]}>
       <header className={styles["onboarding-header"]}>
-        <div className={styles["banner"]} onClick={() => navigate("/")}>ThreadNet</div>
+        <div className={styles["banner"]} onClick={() => navigate("/")}>
+          ThreadNet
+        </div>
       </header>
 
       <div className={styles["form-container"]}>
@@ -51,15 +60,21 @@ function SignIn() {
             onChange={handleChange}
           />
 
-          <button type="submit" className={styles["login-btn"]}>Log in</button>
+          <button type="submit" className={styles["login-btn"]}>
+            Log in
+          </button>
 
           <p className={styles["forgot-link"]}>
-            <button className={styles["link-button"]} onClick={() => navigate("/forgot-password")}>Forgot Password?</button>
+            <button className={styles["link-button"]} onClick={() => navigate("/forgot-password")}>
+              Forgot Password?
+            </button>
           </p>
 
           <p className={styles["register-text"]}>
             Don't have an account?{" "}
-            <button className={styles["link-button"]} onClick={() => navigate("/sign-up")}>Sign up</button>
+            <button className={styles["link-button"]} onClick={() => navigate("/sign-up")}>
+              Sign up
+            </button>
           </p>
         </form>
       </div>
