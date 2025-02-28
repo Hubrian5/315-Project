@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import TopicDTO from "./TopicDTO"; // Import Topic DTO
 import SideSectionDTO from "./SideSectionDTO"; // Import SideSection DTO
+import axios from "axios";
+import mockDatabase from "./mockDatabase"; // Import mock database
 import "./homepage.css";
 
 function Navbar() {
@@ -34,12 +36,12 @@ function Topic({ title, description, threadCount, commentCount, lastPosted }) {
   );
 }
 
-function SideSection() {
+function SideSection({ sideData }) {
   return (
     <div className="side-section">
       <h3>Trending threads</h3>
       <div className="separator"></div>
-      {SideSectionDTO.map((thread, index) => (
+      {sideData.map((thread, index) => (
         <div key={index}>
           <h4>{thread.title}</h4>
           <p>{thread.description}</p>
@@ -51,6 +53,31 @@ function SideSection() {
 }
 
 function HomePage() {
+  const [topics, setTopics] = useState([]);
+  const [sideData, setSideData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Simulating an async request using a promise
+    const fetchMockData = async () => {
+      try {
+        setTopics(mockDatabase.topics);
+        setSideData(mockDatabase.sideSection);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError("Failed to load data.");
+        setLoading(false);
+      }
+    };
+
+    fetchMockData();
+  }, []);
+
+  if (loading) return <h3>Loading...</h3>;
+  if (error) return <h3>{error}</h3>;
+
   return (
     <div className="app-container">
       <header className="header">
@@ -73,7 +100,7 @@ function HomePage() {
             <div>Comment</div>
             <div>Last posted</div>
           </div>
-          {TopicDTO.map((topic, index) => (
+          {topics.map((topic, index) => (
             <Topic
               key={index}
               title={topic.title}
@@ -84,7 +111,7 @@ function HomePage() {
             />
           ))}
         </div>
-        <SideSection />
+        <SideSection sideData={sideData} />
       </div>
     </div>
   );
