@@ -16,7 +16,7 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />  {/* Login Route */}
         <Route path="/sign-up" element={<SignUp />} />  {/* Signup Route */}
         <Route path="/forgot-password" element={<ForgotPassword />} />  {/* Forgot Password Route */}
-        <Route path="/" element={<HomePage />} /> {/* Default route */}
+        <Route path="/" element={<SignIn />} /> {/* Default route */}
       </Routes>
     </div>
   );

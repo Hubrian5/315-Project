@@ -59,7 +59,6 @@ function HomePage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Simulating an async request using a promise
     const fetchMockData = async () => {
       try {
         setTopics(mockDatabase.topics);
@@ -86,7 +85,7 @@ function HomePage() {
         </div>
         <div className="auth-buttons">
           <Link to="/profile" id="myaccount">
-            My Account
+            My Profile
           </Link>
         </div>
       </header>

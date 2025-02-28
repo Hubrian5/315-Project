@@ -11,12 +11,12 @@
     justify-content: center;
 }
 .auth-buttons a {
-    display: flex;
-    color: #333;
-    padding: 8px 16px;
-    border: 1px solid #333;
-    border-radius: 4px;
-    background-color:#ccc;
+    font-size: 1em;
+    padding: 5px 15px;
+    background: white;
+    color: #007bff;
+    border-radius: 20px;
+    cursor: pointer;
 }
 .auth-buttons a:hover {
     background-color: #333;
