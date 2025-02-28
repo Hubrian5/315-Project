@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SignUpDTO } from "./AuthDTO";
+import { validateSignUp, authenticateSignUp } from "./mockAuthService"; // Import mock services
 import styles from "./Onboarding-styles.module.css";
-import { SignUpDTO } from "./AuthDTO";  // Import DTO
 
 function SignUp() {
   const [userData, setUserData] = useState({
@@ -9,6 +10,8 @@ function SignUp() {
     email: "",
     password: "",
   });
+
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -18,14 +21,31 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Use DTO to structure signup data
-    const SignUpData = new SignUpDTO(userData.username, userData.email, userData.password);
-    console.log("Signing up with:", SignUpData);
-    navigate("/");
+
+    // Create DTO object
+    const signUpData = new SignUpDTO(userData.username, userData.email, userData.password);
+
+    // Validate sign-up data using the mock service
+    const validation = validateSignUp(signUpData);
+    if (!validation.success) {
+      setError(validation.message);
+      return;
+    }
+
+    // Mock authentication service (simulate server response)
+    const authResponse = authenticateSignUp(signUpData);
+    if (!authResponse.success) {
+      setError(authResponse.message);
+      return;
+    }
+
+    console.log("Signing up with:", signUpData);
+    alert(authResponse.message); // Mock success message
+    navigate("/homepage"); // Redirect after successful signup
   };
 
   return (
-    <div className={styles["onboarding-container"]}> {/* Scoped wrapper */}
+    <div className={styles["onboarding-container"]}>
       <header className={styles["onboarding-header"]}>
         <div className={styles["banner"]} onClick={() => navigate("/")}>ThreadNet</div>
       </header>
@@ -65,6 +85,8 @@ function SignUp() {
             value={userData.password}
             onChange={handleChange}
           />
+
+          {error && <p style={{ color: "red" }}>{error}</p>}
 
           <button type="submit" className={styles["login-btn"]}>Sign up</button>
 

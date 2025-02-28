@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { validateLogin, authenticateUser } from "./mockAuthService"; // Import mock services
 import styles from "./Onboarding-styles.module.css";
-import { SignInDTO } from "./AuthDTO";  // Import DTO
 
 function SignIn() {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-
+  const [error, setError] = useState(""); // State to store validation errors
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,20 +19,29 @@ function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Use DTO to structure login data
-    const loginData = new SignInDTO(credentials.email, credentials.password);
+    // Step 1: Validate input fields using mock validation service
+    const validation = validateLogin(credentials);
+    if (!validation.success) {
+      setError(validation.message); // Display validation error
+      return;
+    }
 
-    console.log("Logging in with:", loginData); // This logs the structured DTO object
+    // Step 2: Authenticate user using mock authentication service
+    const authResponse = authenticateUser(credentials);
+    if (!authResponse.success) {
+      setError(authResponse.message); // Display authentication error
+      return;
+    }
 
-    navigate("/homepage"); // Redirect to homepage
+    // Step 3: Navigate to the homepage on successful login
+    console.log("Logging in with:", credentials);
+    navigate("/homepage");
   };
 
   return (
     <div className={styles["onboarding-container"]}>
       <header className={styles["onboarding-header"]}>
-        <div className={styles["banner"]} onClick={() => navigate("/")}>
-          ThreadNet
-        </div>
+        <div className={styles["banner"]} onClick={() => navigate("/")}>ThreadNet</div>
       </header>
 
       <div className={styles["form-container"]}>
@@ -60,21 +69,18 @@ function SignIn() {
             onChange={handleChange}
           />
 
-          <button type="submit" className={styles["login-btn"]}>
-            Log in
-          </button>
+          {/* Display error message if login fails */}
+          {error && <p style={{ color: "red" }}>{error}</p>}
+
+          <button type="submit" className={styles["login-btn"]}>Log in</button>
 
           <p className={styles["forgot-link"]}>
-            <button className={styles["link-button"]} onClick={() => navigate("/forgot-password")}>
-              Forgot Password?
-            </button>
+            <button className={styles["link-button"]} onClick={() => navigate("/forgot-password")}>Forgot Password?</button>
           </p>
 
           <p className={styles["register-text"]}>
             Don't have an account?{" "}
-            <button className={styles["link-button"]} onClick={() => navigate("/sign-up")}>
-              Sign up
-            </button>
+            <button className={styles["link-button"]} onClick={() => navigate("/sign-up")}>Sign up</button>
           </p>
         </form>
       </div>
