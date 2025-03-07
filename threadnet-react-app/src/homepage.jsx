@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import TopicDTO from "./TopicDTO"; // Import Topic DTO
-import SideSectionDTO from "./SideSectionDTO"; // Import SideSection DTO
 import axios from "axios";
-import mockDatabase from "./mockDatabase"; // Import mock database
+import { Link } from "react-router-dom";
 import "./homepage.css";
 
 function Navbar() {
-  const navItems = Array(10).fill("Thread");
+  const navItems = Array(12).fill("Thread");
 
   return (
     <div className="navbar">
@@ -59,19 +56,15 @@ function HomePage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMockData = async () => {
-      try {
-        setTopics(mockDatabase.topics);
-        setSideData(mockDatabase.sideSection);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError("Failed to load data.");
-        setLoading(false);
-      }
-    };
+    axios.get("http://localhost:5000/api/topics")
+      .then((response) => setTopics(response.data))
+      .catch((err) => setError("Failed to load topics"));
 
-    fetchMockData();
+    axios.get("http://localhost:5000/api/sideSection")
+      .then((response) => setSideData(response.data))
+      .catch((err) => setError("Failed to load side section"));
+
+    setLoading(false);
   }, []);
 
   if (loading) return <h3>Loading...</h3>;
@@ -85,7 +78,7 @@ function HomePage() {
         </div>
         <div className="auth-buttons">
           <Link to="/profile" id="myaccount">
-            My Profile
+            My Account
           </Link>
         </div>
       </header>
@@ -100,14 +93,7 @@ function HomePage() {
             <div>Last posted</div>
           </div>
           {topics.map((topic, index) => (
-            <Topic
-              key={index}
-              title={topic.title}
-              description={topic.description}
-              threadCount={topic.threadCount}
-              commentCount={topic.commentCount}
-              lastPosted={topic.lastPosted}
-            />
+            <Topic key={index} {...topic} />
           ))}
         </div>
         <SideSection sideData={sideData} />
