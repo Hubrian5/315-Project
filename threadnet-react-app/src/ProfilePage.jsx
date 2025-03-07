@@ -103,12 +103,12 @@ function ProfilePage() {
   return (
     <div>
       <header id="profile-page-header" className="header">
-        <a href="homepage.html" id="threadnet-text">
+        <a href="homepage" id="threadnet-text">
           <div className="banner">
           {/* <Link to="/homepage">ThreadNet</Link> Use Link for navigation */}
             ThreadNet</div>
         </a>
-        <a href="homepage.html" id="myProfile-text">
+        <a href="sign-in" id="myProfile-text">
           <div className="logout">Logout</div>
         </a>
       </header>

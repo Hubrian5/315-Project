@@ -51,15 +51,17 @@ body {
     background: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Center the container and remove weird gap */
+    width: 100%; /* Ensure it takes full width */
 }
 
-.post {
+.post, .reply {
     display: flex;
     padding: 15px;
     border-bottom: 1px solid #ddd;
 }
 
-.post-sidebar {
+.post-sidebar, .reply-sidebar {
     width: 180px;
     text-align: center;
     padding-right: 15px;
@@ -74,17 +76,17 @@ body {
     margin: 0 auto 10px auto;
 }
 
-.post-username {
+.post-username, .reply-username {
     font-weight: bold;
     color: #333;
 }
 
-.post-content {
+.post-content, .reply-content {
     flex-grow: 1;
     padding-left: 15px;
 }
 
-.post-header {
+.post-header, .reply-header {
     font-weight: bold;
     color: #333;
 }
@@ -171,3 +173,87 @@ button {
 .delete-button:hover {
     background: #c82333;
 }
+
+.replies {
+    margin-top: 20px;
+}
+
+.reply {
+    display: flex;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.reply-sidebar {
+    width: 180px;
+    text-align: center;
+    padding-right: 15px;
+    border-right: 1px solid #ddd;
+}
+
+.reply-content {
+    flex-grow: 1;
+    padding-left: 15px;
+}
+
+.reply-header {
+    font-weight: bold;
+    color: #333;
+}
+
+.post-actions, .reply-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Add spacing between buttons */
+    margin-top: 10px;
+  }
+  
+  .post-actions button, .reply-actions button {
+    margin-right: 5px; /* Add spacing between buttons */
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .like-button, .dislike-button {
+    background: #ddd;
+    color: #333;
+  }
+  
+  .like-button:hover {
+    background: #28a745;
+    color: white;
+  }
+  
+  .dislike-button:hover {
+    background: #dc3545;
+    color: white;
+  }
+  
+  .reply-button, .quote-button {
+    background: #007bff;
+    color: white;
+  }
+  
+  .reply-button:hover, .quote-button:hover {
+    background: #0056b3;
+  }
+  
+  .edit-button {
+    background: #ffc107;
+    color: white;
+  }
+  
+  .edit-button:hover {
+    background: #e0a800;
+  }
+  
+  .delete-button {
+    background: #dc3545;
+    color: white;
+  }
+  
+  .delete-button:hover {
+    background: #c82333;
+  }

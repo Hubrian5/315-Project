@@ -1,125 +1,119 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import TopicDTO from "./TopicDTO"; // Import Topic DTO
+import SideSectionDTO from "./SideSectionDTO"; // Import SideSection DTO
+import axios from "axios";
+import mockDatabase from "./mockDatabase"; // Import mock database
 import "./homepage.css";
 
-const Navbar = () => {
-  const navItems = Array(12).fill("Thread");
+function Navbar() {
+  const navItems = Array(10).fill("Thread");
 
   return (
     <div className="navbar">
       {navItems.map((item, index) => (
-        <Link to="/thread" key={index}> {/* Use Link for navigation */}
+        <Link to="/thread" key={index}>
           {item}
         </Link>
       ))}
     </div>
   );
-};
+}
 
-const Topic = ({ title, description, threadCount, commentCount, lastPosted }) => (
-  <div className="topics">
-    <div className="topic">
-      <Link to="/thread"> {/* Use Link for navigation */}
-        <h4>{title}</h4>
-      </Link>
-      <p>{description}</p>
-    </div>
-    <div className="topic">{threadCount}</div>
-    <div className="topic">{commentCount}</div>
-    <div className="topic">{lastPosted}</div>
-  </div>
-);
-
-const SideSection = () => (
-  <div className="side-section">
-    <h3>Trending threads</h3>
-    <div className="separator"></div>
-    <h4>What's your 'lazy but delicious' meal for when you don't feel like cooking?</h4>
-    <p>
-      Sometimes I want something tasty but don't have the energy for a full meal. What's your go-to
-      easy but satisfying dish?
-    </p>
-    <div className="separator"></div>
-    <h4>Sellen is an amoral monster and her quest ending in her [spoilers omitted for title] proves it</h4>
-    <p>View Spoiler</p>
-    <div className="separator"></div>
-    <h4>1.5% USD FX fee each way, can someone explain why it's calculated this way with the exchange rate?</h4>
-    <p>
-      So I looked up FX fee for buying USD stocks, and they say the 1.5% fee is combined with the
-      exchange rate in order to get a single exchange rate that includes the fee, rather than
-      separating into 2 line items...
-    </p>
-  </div>
-);
-
-const HomePage = () => (
-  <div>
-    <header className="header">
-      <div className="logo">
-        <Link to="/homepage">ThreadNet</Link> {/* Use Link for navigation */}
-      </div>
-      <div className="auth-buttons">
-        <Link to="/profile" id="myaccount"> {/* Use Link for navigation */}
-          My Account
+function Topic({ title, description, threadCount, commentCount, lastPosted }) {
+  return (
+    <div className="topics">
+      <div className="topic">
+        <Link to="/thread">
+          <h4>{title}</h4>
         </Link>
+        <p>{description}</p>
       </div>
-    </header>
-    <Navbar />
-    <h2>Welcome to ThreadNet's Newest Forum</h2>
-    <div className="content">
-      <div className="main-section">
-        <div className="table-header">
-          <div>Topics</div>
-          <div>Thread count</div>
-          <div>Comment</div>
-          <div>Last posted</div>
-        </div>
-        <Topic
-          title="General"
-          description="Drop in to say hi! or ask about general rules"
-          threadCount="1334"
-          commentCount="642"
-          lastPosted="4hrs ago"
-        />
-        <Topic
-          title="Homework Help"
-          description="Get help from your peers with any questions!"
-          threadCount="145"
-          commentCount="322"
-          lastPosted="1hr ago"
-        />
-        <Topic
-          title="Chat room"
-          description="Talk to someone"
-          threadCount="1242"
-          commentCount="4412423"
-          lastPosted="12hrs ago"
-        />
-        <Topic
-          title="Programming tips and tricks"
-          description="Share your favorite tips and tricks!"
-          threadCount="1235"
-          commentCount="421"
-          lastPosted="a month ago"
-        />
-        <Topic
-          title="Rant"
-          description="Any thoughts come to your head?"
-          threadCount="123412"
-          commentCount="3"
-          lastPosted="2 years ago"
-        />
-        <Topic
-          title="Recommendations"
-          description="Any recommendations and/or complaints should be directed to here"
-          threadCount="82635"
-          commentCount="0"
-          lastPosted=""
-        />
-      </div>
-      <SideSection />
+      <div className="topic">{threadCount}</div>
+      <div className="topic">{commentCount}</div>
+      <div className="topic">{lastPosted}</div>
     </div>
-  </div>
-);
+  );
+}
+
+function SideSection({ sideData }) {
+  return (
+    <div className="side-section">
+      <h3>Trending threads</h3>
+      <div className="separator"></div>
+      {sideData.map((thread, index) => (
+        <div key={index}>
+          <h4>{thread.title}</h4>
+          <p>{thread.description}</p>
+          <div className="separator"></div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function HomePage() {
+  const [topics, setTopics] = useState([]);
+  const [sideData, setSideData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMockData = async () => {
+      try {
+        setTopics(mockDatabase.topics);
+        setSideData(mockDatabase.sideSection);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError("Failed to load data.");
+        setLoading(false);
+      }
+    };
+
+    fetchMockData();
+  }, []);
+
+  if (loading) return <h3>Loading...</h3>;
+  if (error) return <h3>{error}</h3>;
+
+  return (
+    <div className="app-container">
+      <header className="header">
+        <div className="logo">
+          <Link to="/homepage">ThreadNet</Link>
+        </div>
+        <div className="auth-buttons">
+          <Link to="/profile" id="myaccount">
+            My Profile
+          </Link>
+        </div>
+      </header>
+      <Navbar />
+      <h2>Welcome to ThreadNet's Newest Forum</h2>
+      <div className="content">
+        <div className="main-section">
+          <div className="table-header">
+            <div>Topics</div>
+            <div>Thread count</div>
+            <div>Comment</div>
+            <div>Last posted</div>
+          </div>
+          {topics.map((topic, index) => (
+            <Topic
+              key={index}
+              title={topic.title}
+              description={topic.description}
+              threadCount={topic.threadCount}
+              commentCount={topic.commentCount}
+              lastPosted={topic.lastPosted}
+            />
+          ))}
+        </div>
+        <SideSection sideData={sideData} />
+      </div>
+    </div>
+  );
+}
 
 export default HomePage;
