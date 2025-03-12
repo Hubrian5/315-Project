@@ -1,50 +1,31 @@
 import dotenv from "dotenv";
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import { Topic, SideSection } from "./models.js"; // Import models
 
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+// ✅ Middleware
 app.use(cors());
-app.use(express.json()); // Parse JSON requests
+app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// ✅ MongoDB Connection
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error("MongoDB Connection Error:", err));
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => console.log("Connected to MongoDB"));
-
-// Define Mongoose Schema
-const TopicSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  threadCount: Number,
-  commentCount: Number,
-  lastPosted: String,
-});
-
-const SideSectionSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-});
-
-const Topic = mongoose.model("Topic", TopicSchema);
-const SideSection = mongoose.model("SideSection", SideSectionSchema);
-
-// REST API Routes
+// ✅ Define REST API Routes
 app.get("/api/topics", async (req, res) => {
   try {
     const topics = await Topic.find();
     res.json(topics);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Error fetching topics:", err);
+    res.status(500).json({ error: "Failed to fetch topics" });
   }
 });
 
@@ -53,11 +34,11 @@ app.get("/api/sideSection", async (req, res) => {
     const sideSection = await SideSection.find();
     res.json(sideSection);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Error fetching sideSection:", err);
+    res.status(500).json({ error: "Failed to fetch sideSection" });
   }
 });
 
-// Start Server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
