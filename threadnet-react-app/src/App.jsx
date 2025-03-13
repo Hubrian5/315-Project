@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/thread" element={<Thread />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:username" element={<ProfilePage />} />
         <Route path="/sign-in" element={<SignIn />} />  {/* Login Route */}
         <Route path="/sign-up" element={<SignUp />} />  {/* Signup Route */}
         <Route path="/forgot-password" element={<ForgotPassword />} />  {/* Forgot Password Route */}

@@ -77,7 +77,7 @@ function HomePage() {
           <Link to="/homepage">ThreadNet</Link>
         </div>
         <div className="auth-buttons">
-          <Link to="/profile" id="myaccount">
+          <Link to="/profile/JohnDoe" id="myaccount">
             My Account
           </Link>
         </div>
