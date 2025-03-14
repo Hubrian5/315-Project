@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
@@ -108,4 +109,110 @@ app.post('/api/profile/:username/courses', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
+
+// Threads
+const threadSchema = new mongoose.Schema({
+  title: String,
+  username: String,
+  avatar: String,
+  content: String,
+  timestamp: String,
+  likeCount: Number,
+  dislikeCount: Number,
+  replies: [
+    {
+      username: String,
+      avatar: String,
+      content: String,
+      timestamp: String,
+      likeCount: Number,
+      dislikeCount: Number,
+      userReaction: { type: String, enum: ["like", "dislike", null], default: null },
+    },
+  ],
+}, { collection: "threads" });
+
+const Thread = mongoose.model("Thread", threadSchema);
+
+// Fetch all threads
+app.get("/api/threads", async (req, res) => {
+  try {
+    const threads = await Thread.find();
+    res.json(threads);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch threads" });
+  }
+});
+
+// Fetch thread by ID
+app.get("/api/threads/:id", async (req, res) => {
+  try {
+    const thread = await Thread.findById(req.params.id);
+    if (!thread) {
+      return res.status(404).json({ error: "Thread not found" });
+    }
+    res.json(thread);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch thread" });
+  }
+});
+
+// Create a new thread
+app.post("/api/threads", async (req, res) => {
+  try {
+    const newThread = new Thread(req.body);
+    await newThread.save();
+    res.status(201).json(newThread);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to create thread" });
+  }
+});
+
+// Add a reply to a thread
+app.post("/api/threads/:id/replies", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const thread = await Thread.findById(id);
+
+    if (!thread) {
+      return res.status(404).json({ error: "Thread not found" });
+    }
+
+    thread.replies.push(req.body);
+    await thread.save();
+
+    res.json(thread);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add reply" });
+  }
+});
+
+// Update thread likes/dislikes
+app.put("/api/threads/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { likeCount, dislikeCount } = req.body;
+    const thread = await Thread.findByIdAndUpdate(id, { likeCount, dislikeCount }, { new: true });
+    res.json(thread);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update thread" });
+  }
+});
+
+// Update reply likes/dislikes
+app.put("/api/threads/:threadId/replies/:replyId", async (req, res) => {
+  try {
+    const { threadId, replyId } = req.params;
+    const { likeCount, dislikeCount, userReaction } = req.body; // Add userReaction
+    const thread = await Thread.findById(threadId);
+    const reply = thread.replies.id(replyId);
+    reply.likeCount = likeCount;
+    reply.dislikeCount = dislikeCount;
+    reply.userReaction = userReaction; // Update userReaction
+    await thread.save();
+    res.json(thread);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update reply" });
+  }
 });

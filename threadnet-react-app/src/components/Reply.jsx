@@ -1,7 +1,7 @@
 import React from "react";
 import LikeDislikeButtons from "./LikeDislikeButtons";
 
-function Reply({ reply, onLike, onDislike }) {
+function Reply({ reply, onLike, onDislike, userReaction }) {
   return (
     <div className="reply">
       <div className="reply-sidebar">
@@ -17,9 +17,9 @@ function Reply({ reply, onLike, onDislike }) {
           <LikeDislikeButtons
             likeCount={reply.likeCount}
             dislikeCount={reply.dislikeCount}
-            onLike={() => onLike(reply.id)}
-            onDislike={() => onDislike(reply.id)}
-            userReaction={reply.userReaction}
+            onLike={onLike}
+            onDislike={onDislike}
+            userReaction={userReaction} // Pass userReaction to LikeDislikeButtons
           />
           <button className="reply-button">Reply</button>
           <button className="quote-button">Reply with Quote</button>
