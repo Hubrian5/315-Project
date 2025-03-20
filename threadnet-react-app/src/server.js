@@ -10,11 +10,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ MongoDB Connection
+// Connects to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.error("MongoDB Connection Error:", err));
@@ -34,7 +33,7 @@ mongoose.connect(process.env.MONGO_URI)
   
   const UserProfile = mongoose.model('UserProfile', userProfileSchema);
 
-// ✅ Define REST API Routes
+// Defines REST API Routes
 app.get("/api/topics", async (req, res) => {
   try {
     const topics = await Topic.find();
@@ -55,6 +54,7 @@ app.get("/api/sideSection", async (req, res) => {
   }
 });
 
+// Fetch user profile data
 app.get("/api/profile/:username", async (req, res) => {
   try {
     const userProfile = await UserProfile.findOne({ username: req.params.username });
@@ -106,6 +106,48 @@ app.post('/api/profile/:username/courses', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// Mark a course as completed
+app.put('/api/profile/:username/courses/:entryID/complete', async (req, res) => {
+  try {
+    const { username, entryID } = req.params;
+    const userProfile = await UserProfile.findOne({ username });
+
+    if (!userProfile) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const course = userProfile.courses.find((course) => course.entryID === parseInt(entryID));
+    if (course) {
+      course.courseStatus = "Completed";
+      await userProfile.save();
+    }
+
+    res.json(userProfile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Remove a course
+app.delete('/api/profile/:username/courses/:entryID', async (req, res) => {
+  try {
+    const { username, entryID } = req.params;
+    const userProfile = await UserProfile.findOne({ username });
+
+    if (!userProfile) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    userProfile.courses = userProfile.courses.filter((course) => course.entryID !== parseInt(entryID));
+    await userProfile.save();
+
+    res.json(userProfile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

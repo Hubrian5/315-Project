@@ -136,6 +136,10 @@ button:hover {
     border-radius: 1vmin;
 }
 
+.selected {
+    background-color: #e0e0e0; /* Light gray background for selected item */
+}
+
 #pfp-div {
     display: flex;
     flex-direction: column;

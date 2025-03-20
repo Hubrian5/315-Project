@@ -9,6 +9,7 @@ function ProfilePage() {
   const [completedCourses, setCompletedCourses] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [newCourse, setNewCourse] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   const username = "JohnDoe"; // Replace with dynamic username from authentication
 
@@ -59,6 +60,44 @@ function ProfilePage() {
       setProfileData(response.data);
     } catch (error) {
       console.error("Failed to save profile data:", error);
+    }
+  };
+
+  const handleMarkAsCompleted = async () => {
+    if (!selectedCourse) {
+      alert("Please select a course to mark as completed.");
+      return;
+    }
+  
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/profile/${username}/courses/${selectedCourse.entryID}/complete`
+      );
+      setProfileData(response.data);
+      setOngoingCourses(response.data.courses.filter((course) => course.courseStatus === "Ongoing"));
+      setCompletedCourses(response.data.courses.filter((course) => course.courseStatus === "Completed"));
+      setSelectedCourse(null); // Clear selection
+    } catch (error) {
+      console.error("Failed to mark course as completed:", error);
+    }
+  };
+  
+  const handleRemoveCourse = async () => {
+    if (!selectedCourse) {
+      alert("Please select a course to remove.");
+      return;
+    }
+  
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/profile/${username}/courses/${selectedCourse.entryID}`
+      );
+      setProfileData(response.data);
+      setOngoingCourses(response.data.courses.filter((course) => course.courseStatus === "Ongoing"));
+      setCompletedCourses(response.data.courses.filter((course) => course.courseStatus === "Completed"));
+      setSelectedCourse(null); // Clear selection
+    } catch (error) {
+      console.error("Failed to remove course:", error);
     }
   };
 
@@ -144,14 +183,20 @@ function ProfilePage() {
             <h2 className="courses-header">Ongoing Courses</h2>
             <div id="ongoing-courses-scrollable-list" className="scrollable-list">
               <ul>
-                {ongoingCourses.map((course) => (
-                    <li className="black-text" key={course.entryID}>{course.courseName}</li>
-                ))}
+              {ongoingCourses.map((course) => (
+                <li
+                  className={`black-text ${selectedCourse?.entryID === course.entryID ? "selected" : ""}`}
+                  key={course.entryID}
+                  onClick={() => setSelectedCourse(course)}
+                >
+              {course.courseName}
+                </li>
+              ))}
               </ul>
             </div>
             <div id="ongoing-buttons-div">
-              <button id="remove-button" className="button2">Remove Selected Course</button>
-              <button id="completed-button" className="button2">Mark Selected Course as Complete</button>
+              <button id="remove-button" className="button2" onClick={handleRemoveCourse}>Remove Selected Course</button>
+              <button id="completed-button" className="button2" onClick={handleMarkAsCompleted}>Mark Selected Course as Complete</button>
             </div>
             <div id="ongoing-buttons-div">
               <input id="ongoing-courses-input" 
@@ -168,12 +213,18 @@ function ProfilePage() {
             <div id="completed-courses-scrollable-list" className="scrollable-list">
               <ul>
                 {completedCourses.map((course) => (
-                  <li className="black-text" key={course.entryID}>{course.courseName}</li>
+                  <li
+                    className={`black-text ${selectedCourse?.entryID === course.entryID ? "selected" : ""}`}
+                    key={course.entryID}
+                    onClick={() => setSelectedCourse(course)}
+                  >
+                {course.courseName}
+                  </li>
                 ))}
               </ul>
             </div>
             <div id="ongoing-buttons-div">
-              <button id="remove-button" className="button2">Remove Selected Course</button>
+              <button id="remove-button" className="button2" onClick={handleRemoveCourse}>Remove Selected Course</button>
             </div>
           </div>
         </section>
