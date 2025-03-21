@@ -35,7 +35,7 @@ function Reply({ reply, onLike, onDislike, userReaction, onDelete, onReply, onQu
             onDislike={onDislike}
             userReaction={userReaction}
           />
-          <button className="reply-button" onClick={() => onReply(reply.username)}>Reply</button>
+          {/* <button className="reply-button" onClick={() => onReply(reply.username)}>Reply</button> */}
           <button className="quote-button" onClick={() => onQuoteReply(reply.username, reply.content)}>Reply with Quote</button>
           <button className="delete-button" onClick={onDelete}>🗑️ Delete</button>
         </div>
