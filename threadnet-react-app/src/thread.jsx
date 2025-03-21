@@ -8,6 +8,7 @@ import JaneAvatar from "./assets/Jane.jpg"; // Import Jane's avatar
 function Thread() {
   const [thread, setThread] = useState(null);
   const [replyText, setReplyText] = useState("");
+  const [quotedReply, setQuotedReply] = useState(null);
   const [userReaction, setUserReaction] = useState(null);
 
   // Fetch the thread by ID when the component mounts
@@ -110,7 +111,18 @@ const handleDislike = async () => {
   }
 };
 
-  // Handle reply submission
+  // Handles regular reply
+  const handleReply = (username) => {
+    setReplyText(`@${username} `);
+  };
+
+  // Handles reply with quote
+  const handleQuoteReply = (username, content) => {
+    setQuotedReply({ username, content });
+    setReplyText(`@${username} said: "${content}"\n\n`);
+  };
+
+  // Submits the reply
   const handleReplySubmit = async () => {
     if (replyText.trim()) {
       try {
@@ -121,7 +133,7 @@ const handleDislike = async () => {
           },
           body: JSON.stringify({
             username: "Current User",
-            avatar: "https://m.media-amazon.com/images/I/51DBd7O6GEL.jpg", // Default avatar
+            avatar: "https://m.media-amazon.com/images/I/51DBd7O6GEL.jpg",
             content: replyText,
             timestamp: new Date().toISOString(),
             likeCount: 0,
@@ -131,6 +143,7 @@ const handleDislike = async () => {
         const updatedThread = await response.json();
         setThread(updatedThread);
         setReplyText("");
+        setQuotedReply(null);
       } catch (error) {
         console.error("Error submitting reply:", error);
       }
@@ -272,24 +285,34 @@ const handleReplyDislike = async (replyId) => {
         onDislike={() => handleReplyDislike(reply._id)}
         userReaction={reply.userReaction} // Pass userReaction to Reply component
         onDelete={() => handleReplyDelete(reply._id)}
+        onReply={handleReply}
+        onQuoteReply={handleQuoteReply}
       />
     ))}
   </div>
+      {/* Reply section */}
+      <div className="reply-section">
+        <h3>Reply</h3>
 
+        {/* Quoted Reply Box */}
+        {quotedReply && (
+          <div className="quote-box">
+            <p className="quote-author">@{quotedReply.username} said:</p>
+            <div className="quote-content">"{quotedReply.content}"</div>
+            <button className="quote-remove" onClick={() => setQuotedReply(null)}>✖ Remove Quote</button>
+          </div>
+        )}
 
-        {/* Reply section */}
-        <div className="reply-section">
-          <h3>Reply</h3>
-          <textarea
-            className="reply-box"
-            placeholder="Write your reply..."
-            value={replyText}
-            onChange={(e) => setReplyText(e.target.value)}
-          ></textarea>
-          <button className="reply-button" onClick={handleReplySubmit}>
-            Post Reply
-          </button>
-        </div>
+        {/* Reply Input Box */}
+        <textarea
+          className="reply-box"
+          placeholder="Write your reply..."
+          value={replyText}
+          onChange={(e) => setReplyText(e.target.value)}
+        ></textarea>
+        
+        <button className="reply-button" onClick={handleReplySubmit}>Post Reply</button>
+      </div>
       </div>
     </div>
   );

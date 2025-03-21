@@ -21,7 +21,7 @@ function Post({ post, onLike, onDislike, userReaction }) {
             onDislike={onDislike}
             userReaction={userReaction}
           />
-          <button className="reply-button">Reply</button>
+          {/* <button className="reply-button">Reply</button> */}
           <button className="quote-button">Reply with Quote</button>
           <button className="edit-button">✏️ Edit</button>
           <button className="delete-button">🗑️ Delete</button>
