@@ -121,7 +121,7 @@ const handleDislike = async () => {
           },
           body: JSON.stringify({
             username: "Current User",
-            avatar: "https://example.com/current_user_avatar.webp", // Replace with actual avatar URL
+            avatar: "https://m.media-amazon.com/images/I/51DBd7O6GEL.jpg", // Default avatar
             content: replyText,
             timestamp: new Date().toISOString(),
             likeCount: 0,
@@ -136,6 +136,25 @@ const handleDislike = async () => {
       }
     }
   };
+
+// Handle reply deletion
+const handleReplyDelete = async (replyId) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/threads/${thread._id}/replies/${replyId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete reply");
+    }
+
+    const updatedThread = await response.json();
+    setThread(updatedThread);
+  } catch (error) {
+    console.error("Error deleting reply:", error);
+  }
+};
+
 
 // Handle like for replies
 const handleReplyLike = async (replyId) => {
@@ -245,16 +264,17 @@ const handleReplyDislike = async (replyId) => {
 
         {/* Display replies */}
         <div className="replies">
-  {thread.replies.map((reply) => (
-    <Reply
-      key={reply._id} // Use _id for MongoDB documents
-      reply={reply}
-      onLike={() => handleReplyLike(reply._id)}
-      onDislike={() => handleReplyDislike(reply._id)}
-      userReaction={reply.userReaction} // Pass userReaction to Reply component
-    />
-  ))}
-</div>
+    {thread.replies.map((reply) => (
+      <Reply
+        key={reply._id} // Use _id for MongoDB documents
+        reply={reply}
+        onLike={() => handleReplyLike(reply._id)}
+        onDislike={() => handleReplyDislike(reply._id)}
+        userReaction={reply.userReaction} // Pass userReaction to Reply component
+        onDelete={() => handleReplyDelete(reply._id)}
+      />
+    ))}
+  </div>
 
 
         {/* Reply section */}
@@ -274,5 +294,6 @@ const handleReplyDislike = async (replyId) => {
     </div>
   );
 }
+
 
 export default Thread;
