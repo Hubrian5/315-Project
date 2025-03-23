@@ -14,8 +14,7 @@ export class UserProfileDTO {
 }
 
 export class CoursesDTO {
-    constructor(entryID, courseName, courseStatus) {
-        this.entryID = entryID;
+    constructor(courseName, courseStatus) {
         this.courseName = courseName;
         this.courseStatus = courseStatus;
     }

@@ -32,9 +32,8 @@ function ProfilePage() {
   const handleAddCourse = async () => {
     if (!newCourse.trim()) return;
 
-    const newEntryID = profileData.courses.length + 1;
+    //const newEntryID = profileData.courses.length + 1;
     const newCourseEntry = {
-      entryID: newEntryID,
       courseName: newCourse.trim(),
       courseStatus: "Ongoing",
     };
@@ -71,7 +70,7 @@ function ProfilePage() {
   
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/profile/${username}/courses/${selectedCourse.entryID}/complete`
+        `http://localhost:5000/api/profile/${username}/courses/${selectedCourse._id}/complete`
       );
       setProfileData(response.data);
       setOngoingCourses(response.data.courses.filter((course) => course.courseStatus === "Ongoing"));
@@ -90,7 +89,7 @@ function ProfilePage() {
   
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/profile/${username}/courses/${selectedCourse.entryID}`
+        `http://localhost:5000/api/profile/${username}/courses/${selectedCourse._id}`
       );
       setProfileData(response.data);
       setOngoingCourses(response.data.courses.filter((course) => course.courseStatus === "Ongoing"));
@@ -185,8 +184,8 @@ function ProfilePage() {
               <ul>
               {ongoingCourses.map((course) => (
                 <li
-                  className={`black-text ${selectedCourse?.entryID === course.entryID ? "selected" : ""}`}
-                  key={course.entryID}
+                  className={`black-text ${selectedCourse?._id === course._id ? "selected" : ""}`}
+                  key={course._id}
                   onClick={() => setSelectedCourse(course)}
                 >
               {course.courseName}
@@ -214,8 +213,8 @@ function ProfilePage() {
               <ul>
                 {completedCourses.map((course) => (
                   <li
-                    className={`black-text ${selectedCourse?.entryID === course.entryID ? "selected" : ""}`}
-                    key={course.entryID}
+                    className={`black-text ${selectedCourse?._id === course._id ? "selected" : ""}`}
+                    key={course._id}
                     onClick={() => setSelectedCourse(course)}
                   >
                 {course.courseName}

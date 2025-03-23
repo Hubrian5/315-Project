@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGO_URI)
     numThreadsPosted: Number,
     numReplies: Number,
     aboutMe: String,
-    courses: [{ entryID: Number, courseName: String, courseStatus: String }],
+    courses: [{ courseName: String, courseStatus: String }],
   }, { collection: 'profile' });;
   
   const UserProfile = mongoose.model('UserProfile', userProfileSchema);
@@ -103,6 +103,47 @@ app.post('/api/profile/:username/courses', async (req, res) => {
     res.json(userProfile);
   } catch (error) {
     console.error("Error adding course:", error); // Debug: Log any errors
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Delete a course
+app.delete('/api/profile/:username/courses/:_id', async (req, res) => {
+  try {
+    const { username, _id } = req.params;
+    const userProfile = await UserProfile.findOne({ username });
+
+    if (!userProfile) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    userProfile.courses.pull({ _id }); // Use .pull() to remove by _id
+    await userProfile.save();
+
+    res.json(userProfile);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Mark a course a completed 
+app.put('/api/profile/:username/courses/:_id/complete', async (req, res) => {
+  try {
+    const { username, _id } = req.params;
+    const userProfile = await UserProfile.findOne({ username });
+
+    if (!userProfile) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const course = userProfile.courses.id(_id); // Use .id() to find by _id
+    if (course) {
+      course.courseStatus = "Completed";
+      await userProfile.save();
+    }
+
+    res.json(userProfile);
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
