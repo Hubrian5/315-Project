@@ -1,5 +1,5 @@
 class ThreadDTO {
-    constructor({ id, username, avatar, content, timestamp, likeCount, dislikeCount, replies }) {
+    constructor({ id, username, avatar, content, timestamp, likeCount, dislikeCount, replies, topicTitle }) {
         this.id = id;
         this.username = username;
         this.avatar = avatar;
@@ -8,6 +8,7 @@ class ThreadDTO {
         this.likeCount = likeCount || 0;
         this.dislikeCount = dislikeCount || 0;
         this.replies = replies || [];
+        this.topicTitle = topicTitle;
     }
 
     toJSON() {
@@ -19,7 +20,8 @@ class ThreadDTO {
             timestamp: this.timestamp,
             likeCount: this.likeCount,
             dislikeCount: this.dislikeCount,
-            replies: this.replies
+            replies: this.replies,
+            topicTitle: this.topicTitle
         };
     }
 

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Thread from "./Thread";
+import Thread from "./thread.jsx";
 import HomePage from "./homepage";
 import ProfilePage from "./ProfilePage.jsx"; // Import your ProfilePage component
 import SignIn from "./SignIn";  // Login page
@@ -11,7 +11,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/homepage" element={<HomePage />} />
-        <Route path="/thread" element={<Thread />} />
+        <Route path="/threads/topic/:topicTitle" element={<Thread />} />
         <Route path="/profile/:username" element={<ProfilePage />} />
         <Route path="/sign-in" element={<SignIn />} />  {/* Login Route */}
         <Route path="/sign-up" element={<SignUp />} />  {/* Signup Route */}

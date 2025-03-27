@@ -172,6 +172,7 @@ const threadSchema = new mongoose.Schema({
       userReaction: { type: String, enum: ["like", "dislike", null], default: null },
     },
   ],
+  topicTitle: String,
 }, { collection: "threads" });
 
 const Thread = mongoose.model("Thread", threadSchema);
@@ -281,5 +282,20 @@ app.delete("/api/threads/:threadId/replies/:replyId", async (req, res) => {
     res.json(thread);
   } catch (err) {
     res.status(500).json({ error: "Failed to delete reply" });
+  }
+});
+
+
+// Trying to organzie threads by topic ******************************************
+// Get thread by topic title
+app.get('/api/threads/by-topic/:topicTitle', async (req, res) => {
+  try {
+    const thread = await Thread.findOne({ topicTitle: req.params.topicTitle });
+    if (!thread) {
+      return res.status(404).json({ error: "Thread not found" });
+    }
+    res.json(thread); // Returns a single thread object
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch thread" });
   }
 });

@@ -4,8 +4,10 @@ import Post from "./components/Post";
 import Reply from "./components/Reply";
 import JohnAvatar from "./assets/John.webp"; // Import John's avatar
 import JaneAvatar from "./assets/Jane.jpg"; // Import Jane's avatar
+import { useParams } from "react-router-dom";
 
 function Thread() {
+  const { topicTitle } = useParams();
   const [thread, setThread] = useState(null);
   const [replyText, setReplyText] = useState("");
   const [quotedReply, setQuotedReply] = useState(null);
@@ -15,7 +17,7 @@ function Thread() {
   useEffect(() => {
     const fetchThread = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/threads/67d39bf428871793c477dbd4");
+        const response = await fetch(`http://localhost:5000/api/threads/by-topic/${encodeURIComponent(topicTitle)}`);
         if (!response.ok) {
           throw new Error("Failed to fetch thread");
         }
@@ -267,7 +269,7 @@ const handleReplyDislike = async (replyId) => {
       </header>
 
       <div className="container">
-        <h2>{thread.title}</h2>
+        <h2>Threads in Topic: {decodeURIComponent(topicTitle)}</h2>
         <Post
           post={thread}
           onLike={handleLike}
@@ -277,7 +279,7 @@ const handleReplyDislike = async (replyId) => {
 
         {/* Display replies */}
         <div className="replies">
-    {thread.replies.map((reply) => (
+    {thread.replies?.map((reply) => (
       <Reply
         key={reply._id} // Use _id for MongoDB documents
         reply={reply}

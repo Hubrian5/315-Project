@@ -21,7 +21,7 @@ function Topic({ title, description, threadCount, commentCount, lastPosted }) {
   return (
     <div className="topics">
       <div className="topic">
-        <Link to="/thread">
+        <Link to={`/threads/topic/${encodeURIComponent(title)}`}>
           <h4>{title}</h4>
         </Link>
         <p>{description}</p>
