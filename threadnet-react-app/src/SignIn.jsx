@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { validateLogin, authenticateUser } from "./mockAuthService"; // Import mock services
+import { useAuth } from "./AuthContext.jsx";
 import styles from "./Onboarding-styles.module.css";
 
 function SignIn() {
@@ -8,34 +8,44 @@ function SignIn() {
     email: "",
     password: "",
   });
-  const [error, setError] = useState(""); // State to store validation errors
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    // Step 1: Validate input fields using mock validation service
-    const validation = validateLogin(credentials);
-    if (!validation.success) {
-      setError(validation.message); // Display validation error
-      return;
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      login(data.user);
+      navigate("/homepage");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-
-    // Step 2: Authenticate user using mock authentication service
-    const authResponse = authenticateUser(credentials);
-    if (!authResponse.success) {
-      setError(authResponse.message); // Display authentication error
-      return;
-    }
-
-    // Step 3: Navigate to the homepage on successful login
-    console.log("Logging in with:", credentials);
-    navigate("/homepage");
   };
 
   return (
@@ -69,18 +79,35 @@ function SignIn() {
             onChange={handleChange}
           />
 
-          {/* Display error message if login fails */}
           {error && <p style={{ color: "red" }}>{error}</p>}
 
-          <button type="submit" className={styles["login-btn"]}>Log in</button>
+          <button 
+            type="submit" 
+            className={styles["login-btn"]}
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Log in"}
+          </button>
 
           <p className={styles["forgot-link"]}>
-            <button className={styles["link-button"]} onClick={() => navigate("/forgot-password")}>Forgot Password?</button>
+            <button 
+              type="button"
+              className={styles["link-button"]} 
+              onClick={() => navigate("/forgot-password")}
+            >
+              Forgot Password?
+            </button>
           </p>
 
           <p className={styles["register-text"]}>
             Don't have an account?{" "}
-            <button className={styles["link-button"]} onClick={() => navigate("/sign-up")}>Sign up</button>
+            <button 
+              type="button"
+              className={styles["link-button"]} 
+              onClick={() => navigate("/sign-up")}
+            >
+              Sign up
+            </button>
           </p>
         </form>
       </div>

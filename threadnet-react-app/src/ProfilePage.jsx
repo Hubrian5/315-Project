@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ThreadNet-ProfilePage-Styling.css";
-import appleImage from "./assets/apple.jpg";
+import appleImage from "./assets/robot.jpg";
 
 function ProfilePage() {
   const [profileData, setProfileData] = useState(null);

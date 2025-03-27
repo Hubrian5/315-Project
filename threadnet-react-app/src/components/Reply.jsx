@@ -1,7 +1,14 @@
 import React from "react";
 import LikeDislikeButtons from "./LikeDislikeButtons";
 
-function Reply({ reply, onLike, onDislike, userReaction, onDelete, onReply, onQuoteReply}) {
+function Reply({ reply, onLike, onDislike, userReaction, onDelete, onReply, onQuoteReply, currentUser}) {
+
+  const currentUsr = "Current User";
+
+  console.log("Current User:", currentUsr);
+  console.log("Reply Author:", reply.username);
+  console.log("Match Check:", reply.username === currentUsr);
+
   return (
     <div className="reply">
       <div className="reply-sidebar">
@@ -37,7 +44,9 @@ function Reply({ reply, onLike, onDislike, userReaction, onDelete, onReply, onQu
           />
           {/* <button className="reply-button" onClick={() => onReply(reply.username)}>Reply</button> */}
           <button className="quote-button" onClick={() => onQuoteReply(reply.username, reply.content)}>Reply with Quote</button>
-          <button className="delete-button" onClick={onDelete}>🗑️ Delete</button>
+          {reply.username === currentUsr && (
+            <button className="delete-button" onClick={onDelete}>🗑️ Delete</button>
+          )}
         </div>
       </div>
     </div>

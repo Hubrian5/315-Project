@@ -148,10 +148,6 @@ app.put('/api/profile/:username/courses/:_id/complete', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
-
 // Threads
 const threadSchema = new mongoose.Schema({
   title: String,
@@ -298,4 +294,56 @@ app.get('/api/threads/by-topic/:topicTitle', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch thread" });
   }
+});
+
+// Auth Endpoints using Profile collection
+app.post('/api/auth/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const profile = await UserProfile.findOne({ email });
+    if (!profile) {
+      return res.status(401).json({ message: "Invalid credentials wow" });
+    }
+
+    console.log("Whoa", profile.password);
+    console.log("Wow", password);
+    // Plain text password comparison (not secure)
+    if (password !== profile.password) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // Set up session with profile data
+    req.json = {
+      id: profile._id,
+      username: profile.username,
+      email: profile.email
+    };
+
+    res.json({ 
+      user: {
+        id: profile._id,
+        username: profile.username,
+        email: profile.email
+      }
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.get('/api/auth/check', (req, res) => {
+  // Always return "not authenticated" since we're not tracking sessions.
+  res.status(401).json({ message: "Not authenticated (server is stateless)" });
+});
+
+app.post('/api/auth/logout', (req, res) => {
+  // Just return success (no session to destroy).
+  res.json({ message: "Logged out successfully (no server-side session)" });
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

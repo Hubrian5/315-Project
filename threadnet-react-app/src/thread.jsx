@@ -5,6 +5,7 @@ import Reply from "./components/Reply";
 import JohnAvatar from "./assets/John.webp"; // Import John's avatar
 import JaneAvatar from "./assets/Jane.jpg"; // Import Jane's avatar
 import { useParams } from "react-router-dom";
+import { useAuth } from "./AuthContext.jsx";
 
 function Thread() {
   const { topicTitle } = useParams();
@@ -12,6 +13,7 @@ function Thread() {
   const [replyText, setReplyText] = useState("");
   const [quotedReply, setQuotedReply] = useState(null);
   const [userReaction, setUserReaction] = useState(null);
+  const { user } = useAuth();
 
   // Fetch the thread by ID when the component mounts
   useEffect(() => {
