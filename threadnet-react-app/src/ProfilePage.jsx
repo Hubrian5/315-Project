@@ -11,7 +11,7 @@ function ProfilePage() {
   const [newCourse, setNewCourse] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-  const username = "JohnDoe"; // Replace with dynamic username from authentication
+  const username = "JohnDoe";
 
   useEffect(() => {
     const fetchProfileData = async () => {

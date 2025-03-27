@@ -10,11 +10,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ Middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ MongoDB Connection
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.error("MongoDB Connection Error:", err));
@@ -34,7 +34,7 @@ mongoose.connect(process.env.MONGO_URI)
   
   const UserProfile = mongoose.model('UserProfile', userProfileSchema);
 
-// ✅ Define REST API Routes
+// Define REST API Routes
 app.get("/api/topics", async (req, res) => {
   try {
     const topics = await Topic.find();
@@ -308,12 +308,10 @@ app.post('/api/auth/login', async (req, res) => {
 
     console.log("Whoa", profile.password);
     console.log("Wow", password);
-    // Plain text password comparison (not secure)
     if (password !== profile.password) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // Set up session with profile data
     req.json = {
       id: profile._id,
       username: profile.username,
@@ -334,12 +332,10 @@ app.post('/api/auth/login', async (req, res) => {
 });
 
 app.get('/api/auth/check', (req, res) => {
-  // Always return "not authenticated" since we're not tracking sessions.
   res.status(401).json({ message: "Not authenticated (server is stateless)" });
 });
 
 app.post('/api/auth/logout', (req, res) => {
-  // Just return success (no session to destroy).
   res.json({ message: "Logged out successfully (no server-side session)" });
 });
 
