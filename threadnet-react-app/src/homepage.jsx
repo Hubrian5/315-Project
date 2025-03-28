@@ -56,6 +56,12 @@ function HomePage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    axios.put("http://localhost:5000/api/topics/update-thread-counts")
+      .then(res => console.log("threadCount updated from frontend"))
+      .catch(err => console.error("update-thread-counts failed:", err));
+  }, []);
+
+  useEffect(() => {
     axios.get("http://localhost:5000/api/topics")
       .then((response) => setTopics(response.data))
       .catch((err) => setError("Failed to load topics"));

@@ -16,7 +16,10 @@ app.use(express.json());
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => {
+    console.log("Connected to MongoDB");
+    updateAllTopicMeta();
+  })
   .catch(err => console.error("MongoDB Connection Error:", err));
 
 
@@ -44,6 +47,89 @@ app.get("/api/topics", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch topics" });
   }
 });
+
+app.put("/api/topics/update-thread-counts", async (req, res) => {
+  try {
+    const topics = await Topic.find();
+
+    const updatedTopics = await Promise.all(
+      topics.map(async (topic) => {
+        const threads = await Thread.find({ topicTitle: topic.title });
+
+        let totalThreadCount = 0;
+
+        threads.forEach(thread => {
+          const replyCount = Array.isArray(thread.replies) ? thread.replies.length : 0;
+          totalThreadCount += replyCount + 1;
+        });
+
+        topic.threadCount = totalThreadCount;
+        await topic.save();
+
+        return topic;
+      })
+    );
+
+    res.json({
+      message: "threadCount updated for all topics",
+      topics: updatedTopics
+    });
+  } catch (err) {
+    console.error("Error updating threadCount:", err);
+    res.status(500).json({ error: "Failed to update threadCount for topics" });
+  }
+});
+
+const updateAllTopicMeta = async () => {
+  try {
+    const topics = await Topic.find();
+
+    for (const topic of topics) {
+      const threads = await Thread.find({ topicTitle: topic.title });
+
+      let totalThreadCount = 0;
+      let latestTimestamp = null;
+
+      threads.forEach(thread => {
+        totalThreadCount += 1 + (thread.replies?.length || 0);
+
+        thread.replies.forEach(reply => {
+          const replyTime = new Date(reply.timestamp);
+          if (!isNaN(replyTime) && (!latestTimestamp || replyTime > latestTimestamp)) {
+            latestTimestamp = replyTime;
+          }
+        });
+      });
+
+      topic.threadCount = totalThreadCount;
+
+      if (latestTimestamp) {
+        const now = new Date();
+        const diffMs = now - latestTimestamp;
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const diffMonths = Math.floor(diffDays / 30);
+      
+        if (diffHours < 1) {
+          topic.lastPosted = "Just now";
+        } else if (diffHours < 24) {
+          topic.lastPosted = `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
+        } else if (diffDays < 30) {
+          topic.lastPosted = `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
+        } else {
+          topic.lastPosted = `${diffMonths} month${diffMonths > 1 ? "s" : ""} ago`;
+        }
+      } else {
+        topic.lastPosted = "No replies";
+      }
+      await topic.save();
+    }
+
+  } catch (err) {
+    console.error("Error updating topics:", err);
+  }
+};
+
 
 app.get("/api/sideSection", async (req, res) => {
   try {
