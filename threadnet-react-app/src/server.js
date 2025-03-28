@@ -418,7 +418,6 @@ app.get('/api/threads/by-topic/:topicTitle', async (req, res) => {
   }
 });
 
-// Auth Endpoints using Profile collection
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -428,8 +427,6 @@ app.post('/api/auth/login', async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials wow" });
     }
 
-    console.log("Whoa", profile.password);
-    console.log("Wow", password);
     if (password !== profile.password) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
