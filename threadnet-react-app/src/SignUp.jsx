@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SignUpDTO } from "./AuthDTO";
 import { validateSignUp, authenticateSignUp } from "./mockAuthService"; // Import mock services
 import styles from "./Onboarding-styles.module.css";
+import axios from "axios";
 
 function SignUp() {
   const [userData, setUserData] = useState({
@@ -19,29 +20,31 @@ function SignUp() {
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Create DTO object
+  
     const signUpData = new SignUpDTO(userData.username, userData.email, userData.password);
-
-    // Validate sign-up data using the mock service
+  
     const validation = validateSignUp(signUpData);
     if (!validation.success) {
       setError(validation.message);
       return;
     }
-
-    // Mock authentication service (simulate server response)
-    const authResponse = authenticateSignUp(signUpData);
-    if (!authResponse.success) {
-      setError(authResponse.message);
-      return;
+  
+    try {
+      const response = await axios.post("http://localhost:5000/api/auth/signup", signUpData);
+  
+      if (response.data.success) {
+        console.log("Signed up:", response.data.user);
+        alert("Signup successful!");
+        navigate("/homepage");
+      } else {
+        setError(response.data.message);
+      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError(err.response?.data?.message || "Signup failed");
     }
-
-    console.log("Signing up with:", signUpData);
-    alert(authResponse.message); // Mock success message
-    navigate("/homepage"); // Redirect after successful signup
   };
 
   return (

@@ -11,8 +11,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true 
+}));app.use(express.json());
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
@@ -36,6 +38,40 @@ mongoose.connect(process.env.MONGO_URI)
   }, { collection: 'profile' });;
   
   const UserProfile = mongoose.model('UserProfile', userProfileSchema);
+
+app.post("/api/auth/signup", async (req, res) => {
+  const { username, email, password } = req.body;
+
+  try {
+    // Check if email or username already exists
+    const existingUser = await UserProfile.findOne({
+      $or: [{ email }, { username }]
+    });
+  
+    if (existingUser) {
+      return res.status(409).json({ success: false, message: "User already exists" });
+    }
+  
+    const newUser = new UserProfile({
+      username,
+      email,
+      password,
+      recoveryEmail: "",
+      dateJoined: new Date().toISOString(),
+      numThreadsPosted: 0,
+      numReplies: 0,
+      aboutMe: "",
+      courses: [],
+    });
+  
+    await newUser.save();
+  
+    res.status(201).json({ success: true, message: "Signup successful", user: newUser });
+  } catch (err) {
+    console.error("Signup failed:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});  
 
 // Define REST API Routes
 app.get("/api/topics", async (req, res) => {
