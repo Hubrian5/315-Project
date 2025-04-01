@@ -305,13 +305,14 @@ app.get("/api/threads", async (req, res) => {
   }
 });
 
-// Fetch thread by ID
+// Fetch thread by ID and sort replies before sending
 app.get("/api/threads/:id", async (req, res) => {
   try {
     const thread = await Thread.findById(req.params.id);
-    if (!thread) {
-      return res.status(404).json({ error: "Thread not found" });
-    }
+    if (!thread) return res.status(404).json({ error: "Thread not found" });
+    
+    // Sort replies by timestamp (newest first)
+    thread.replies.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     res.json(thread);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch thread" });
@@ -409,10 +410,11 @@ app.delete("/api/threads/:threadId/replies/:replyId", async (req, res) => {
 app.get('/api/threads/by-topic/:topicTitle', async (req, res) => {
   try {
     const thread = await Thread.findOne({ topicTitle: req.params.topicTitle });
-    if (!thread) {
-      return res.status(404).json({ error: "Thread not found" });
-    }
-    res.json(thread); // Returns a single thread object
+    if (!thread) return res.status(404).json({ error: "Thread not found" });
+    
+    // Sort replies by timestamp (newest first)
+    thread.replies.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    res.json(thread);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch thread" });
   }

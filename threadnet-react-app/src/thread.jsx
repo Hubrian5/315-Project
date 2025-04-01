@@ -281,19 +281,21 @@ const handleReplyDislike = async (replyId) => {
 
         {/* Display replies */}
         <div className="replies">
-    {thread.replies?.map((reply) => (
-      <Reply
-        key={reply._id} // Use _id for MongoDB documents
-        reply={reply}
-        onLike={() => handleReplyLike(reply._id)}
-        onDislike={() => handleReplyDislike(reply._id)}
-        userReaction={reply.userReaction} // Pass userReaction to Reply component
-        onDelete={() => handleReplyDelete(reply._id)}
-        onReply={handleReply}
-        onQuoteReply={handleQuoteReply}
-      />
-    ))}
-  </div>
+        {thread.replies
+          ?.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+          .map((reply) => (
+            <Reply
+              key={reply._id}
+              reply={reply}
+              onLike={() => handleReplyLike(reply._id)}
+              onDislike={() => handleReplyDislike(reply._id)}
+              userReaction={reply.userReaction}
+              onDelete={() => handleReplyDelete(reply._id)}
+              onReply={handleReply}
+              onQuoteReply={handleQuoteReply}
+            />
+          ))}
+      </div>
       {/* Reply section */}
       <div className="reply-section">
         <h3>Reply</h3>
