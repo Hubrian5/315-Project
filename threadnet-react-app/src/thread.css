@@ -300,3 +300,42 @@ button {
   .delete-button:hover {
     background: #c82333;
   }
+
+  /* Top reply box styling */
+.top-reply-box {
+    background: #ffffff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e1e4e8;
+  }
+  
+  .top-reply-box h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #24292e;
+    font-size: 1.2em;
+  }
+  
+  .top-reply-box .reply-box {
+    min-height: 120px;
+    margin-bottom: 15px;
+    font-size: 1em;
+    line-height: 1.5;
+  }
+  
+  .top-reply-box .reply-button {
+    padding: 8px 16px;
+    font-size: 1em;
+  }
+  
+  .replies {
+    margin-top: 10px;
+    border-top: 1px solid #e1e4e8;
+    padding-top: 20px;
+  }
+  
+  .container {
+    padding-top: 15px;
+  }

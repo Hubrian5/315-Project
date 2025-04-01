@@ -263,24 +263,54 @@ const handleReplyDislike = async (replyId) => {
   }
 };
 
-  return (
-    <div className="thread-container">
-      <header className="header">
-        <a href="/homepage" className="banner">ThreadNet</a>
-        <a href="/profile" className="profile">My Profile</a>
-      </header>
+return (
+  <div className="thread-container">
+    <header className="header">
+      <a href="/homepage" className="banner">ThreadNet</a>
+      <a href="/profile" className="profile">My Profile</a>
+    </header>
 
-      <div className="container">
-        <h2>Threads in Topic: {decodeURIComponent(topicTitle)}</h2>
-        <Post
-          post={thread}
-          onLike={handleLike}
-          onDislike={handleDislike}
-          userReaction={userReaction}
-        />
+    <div className="container">
+      <h2>Threads in Topic: {decodeURIComponent(topicTitle)}</h2>
+      
+      {/* Main Post */}
+      <Post
+        post={thread}
+        onLike={handleLike}
+        onDislike={handleDislike}
+        userReaction={userReaction}
+      />
 
-        {/* Display replies */}
-        <div className="replies">
+      {/* Reply Section */}
+      <div className="reply-section">
+        <h3>Reply</h3>
+
+        {/* Quoted Reply Box */}
+        {quotedReply && (
+          <div className="quote-box">
+            <p className="quote-author">@{quotedReply.username} said:</p>
+            <div className="quote-content">"{quotedReply.content}"</div>
+            <button className="quote-remove" onClick={() => setQuotedReply(null)}>
+              ✖ Remove Quote
+            </button>
+          </div>
+        )}
+
+        {/* Reply Input Box */}
+        <textarea
+          className="reply-box"
+          placeholder="Write your reply..."
+          value={replyText}
+          onChange={(e) => setReplyText(e.target.value)}
+        ></textarea>
+        
+        <button className="reply-button" onClick={handleReplySubmit}>
+          Post Reply
+        </button>
+      </div>
+
+      {/* Replies List */}
+      <div className="replies">
         {thread.replies
           ?.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
           .map((reply) => (
@@ -296,32 +326,9 @@ const handleReplyDislike = async (replyId) => {
             />
           ))}
       </div>
-      {/* Reply section */}
-      <div className="reply-section">
-        <h3>Reply</h3>
-
-        {/* Quoted Reply Box */}
-        {quotedReply && (
-          <div className="quote-box">
-            <p className="quote-author">@{quotedReply.username} said:</p>
-            <div className="quote-content">"{quotedReply.content}"</div>
-            <button className="quote-remove" onClick={() => setQuotedReply(null)}>✖ Remove Quote</button>
-          </div>
-        )}
-
-        {/* Reply Input Box */}
-        <textarea
-          className="reply-box"
-          placeholder="Write your reply..."
-          value={replyText}
-          onChange={(e) => setReplyText(e.target.value)}
-        ></textarea>
-        
-        <button className="reply-button" onClick={handleReplySubmit}>Post Reply</button>
-      </div>
-      </div>
     </div>
-  );
+  </div>
+);
 }
 
 
