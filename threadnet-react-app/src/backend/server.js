@@ -9,8 +9,12 @@ dotenv.config();
 const app = express();
 app.use(express.json()); // Allows JSON data
 app.use(cors()); // Allows React to access the backend
+// Routes
+app.use("/api/users", userRoutes);
 
 const PORT = process.env.PORT || 5000;
+console.log("MONGO_URI from env:", process.env.MONGO_URI);
+
 
 // Connect to MongoDB
 mongoose

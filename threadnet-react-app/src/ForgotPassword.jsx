@@ -13,22 +13,41 @@ function ForgotPassword() {
     setEmail(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setMessage("");
+  
     // Create DTO object
     const forgotPasswordData = new ForgotPasswordDTO(email);
-
+  
     // Validate email before sending request
     const validation = validateForgotPassword(forgotPasswordData.email);
     if (!validation.success) {
       setMessage(validation.message);
       return;
     }
-
-    console.log("Reset password request for:", forgotPasswordData);
-    alert(validation.message); // Mock success message
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/users/forgot-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+  
+      setMessage(data.message); // Success message
+    } catch (err) {
+      setMessage(err.message); // Error message
+    }
   };
+  
 
   return (
     <div className={styles["onboarding-container"]}>
