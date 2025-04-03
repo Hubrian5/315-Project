@@ -107,10 +107,10 @@ function ProfilePage() {
   return (
     <div>
       <header id="profile-page-header" className="header">
-        <a href="homepage" id="threadnet-text">
+        <a href="/homepage" id="threadnet-text">
           <div className="banner">ThreadNet</div>
         </a>
-        <a href="sign-in" id="myProfile-text">
+        <a href="/sign-in" id="myProfile-text">
           <div className="logout">Logout</div>
         </a>
       </header>
